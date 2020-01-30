@@ -7,6 +7,5 @@ Name | Type | Description | Notes
 **resolution** | [**Post01VrpSubmitVrpConfigurationResolution**](Post01VrpSubmitVrpConfigurationResolution.md) |  | [optional] 
 **restitution** | [**Post01VrpSubmitVrpConfigurationRestitution**](Post01VrpSubmitVrpConfigurationRestitution.md) |  | [optional] 
 **schedule** | [**Post01VrpSubmitVrpConfigurationSchedule**](Post01VrpSubmitVrpConfigurationSchedule.md) |  | [optional] 
-**debug** | [**Post01VrpSubmitVrpConfigurationDebug**](Post01VrpSubmitVrpConfigurationDebug.md) |  | [optional] 
 
 

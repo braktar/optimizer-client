@@ -9,6 +9,5 @@ Name | Type | Description | Notes
 **linked_ids** | **String** | List of activities involved in the relation | [optional] 
 **linked_vehicle_ids** | **String** | List of vehicles involved in the relation | [optional] 
 **periodicity** | **Integer** | In the case of planning optimization, number of weeks/months to consider at the same time/in each relation : vehicle group duration on weeks/months | [optional] 
-**linked_vehicles_ids** | **String** |  | [optional] 
 
 

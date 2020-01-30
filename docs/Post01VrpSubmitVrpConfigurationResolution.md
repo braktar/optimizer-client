@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **split_number** | **Integer** | Give the current number of process for block call | [optional] 
 **evaluate_only** | **BOOLEAN** | Takes the solution provided through relations of type order and computes solution cost and time/distance associated values (Ortools only). Not available for scheduling yet. | [optional] 
 **several_solutions** | **Integer** | Return several solution computed with different matrices | [optional] 
+**batch_heuristic** | **BOOLEAN** | Compute each heuristic solution | [optional] 
 **variation_ratio** | **Integer** | Value of the ratio that will change the matrice | [optional] 
 
 
