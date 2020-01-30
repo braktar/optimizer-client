@@ -129,7 +129,7 @@ module OptimizerClient
 
     def initialize
       @scheme = 'https'
-      @host = 'optimizer.mapotempo.com'
+      @host = 'localhost:1791'
       @base_path = ''
       @api_key = {}
       @api_key_prefix = {}
@@ -196,6 +196,20 @@ module OptimizerClient
     # Returns Auth Settings hash for api client.
     def auth_settings
       {
+        'api_key_header' =>
+          {
+            type: 'api_key',
+            in: 'header',
+            key: 'api_key',
+            value: api_key_with_prefix('api_key')
+          },
+        'api_key_query_param' =>
+          {
+            type: 'api_key',
+            in: 'query',
+            key: 'api_key',
+            value: api_key_with_prefix('api_key')
+          },
       }
     end
   end

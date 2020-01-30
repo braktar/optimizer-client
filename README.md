@@ -71,7 +71,7 @@ end
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://optimizer.mapotempo.com*
+All URIs are relative to *https://localhost:1791*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -129,5 +129,16 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Authorization
 
- All endpoints do not require authorization.
+
+### api_key_header
+
+- **Type**: API key
+- **API key parameter name**: api_key
+- **Location**: HTTP header
+
+### api_key_query_param
+
+- **Type**: API key
+- **API key parameter name**: api_key
+- **Location**: URL query string
 
