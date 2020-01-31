@@ -196,13 +196,6 @@ module OptimizerClient
     # Returns Auth Settings hash for api client.
     def auth_settings
       {
-        'api_key_header' =>
-          {
-            type: 'api_key',
-            in: 'header',
-            key: 'api_key',
-            value: api_key_with_prefix('api_key')
-          },
         'api_key_query_param' =>
           {
             type: 'api_key',

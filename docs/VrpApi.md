@@ -67,6 +67,13 @@ Get the job status and details, contains progress avancement. Return the best ac
 ```ruby
 # load the gem
 require 'optimizer-client'
+# setup authorization
+OptimizerClient.configure do |config|
+  # Configure API key authorization: api_key_query_param
+  config.api_key['api_key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['api_key'] = 'Bearer'
+end
 
 api_instance = OptimizerClient::VrpApi.new
 
@@ -94,7 +101,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[api_key_query_param](../README.md#api_key_query_param)
 
 ### HTTP request headers
 

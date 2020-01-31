@@ -130,12 +130,6 @@ Class | Method | HTTP request | Description
 ## Documentation for Authorization
 
 
-### api_key_header
-
-- **Type**: API key
-- **API key parameter name**: api_key
-- **Location**: HTTP header
-
 ### api_key_query_param
 
 - **Type**: API key
