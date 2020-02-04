@@ -35,7 +35,7 @@ module OptimizerClient
       {
         :'id' => :'String',
         :'matrix_index' => :'Integer',
-        :'location' => :'Array<Post01VrpSubmitVrpLocation>'
+        :'location' => :'Post01VrpSubmitVrpLocation'
       }
     end
 
@@ -56,9 +56,7 @@ module OptimizerClient
       end
 
       if attributes.has_key?(:'location')
-        if (value = attributes[:'location']).is_a?(Array)
-          self.location = value
-        end
+        self.location = attributes[:'location']
       end
     end
 

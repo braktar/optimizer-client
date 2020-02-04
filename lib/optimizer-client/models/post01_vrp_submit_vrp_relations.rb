@@ -31,6 +31,28 @@ module OptimizerClient
     # In the case of planning optimization, number of weeks/months to consider at the same time/in each relation : vehicle group duration on weeks/months
     attr_accessor :periodicity
 
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -49,8 +71,8 @@ module OptimizerClient
         :'id' => :'String',
         :'type' => :'String',
         :'lapse' => :'Integer',
-        :'linked_ids' => :'String',
-        :'linked_vehicle_ids' => :'String',
+        :'linked_ids' => :'Array<String>',
+        :'linked_vehicle_ids' => :'Array<String>',
         :'periodicity' => :'Integer'
       }
     end
@@ -76,11 +98,15 @@ module OptimizerClient
       end
 
       if attributes.has_key?(:'linked_ids')
-        self.linked_ids = attributes[:'linked_ids']
+        if (value = attributes[:'linked_ids']).is_a?(Array)
+          self.linked_ids = value
+        end
       end
 
       if attributes.has_key?(:'linked_vehicle_ids')
-        self.linked_vehicle_ids = attributes[:'linked_vehicle_ids']
+        if (value = attributes[:'linked_vehicle_ids']).is_a?(Array)
+          self.linked_vehicle_ids = value
+        end
       end
 
       if attributes.has_key?(:'periodicity')
@@ -108,7 +134,19 @@ module OptimizerClient
     def valid?
       return false if @id.nil?
       return false if @type.nil?
+      type_validator = EnumAttributeValidator.new('String', ['same_route', 'sequence', 'order', 'minimum_day_lapse', 'maximum_day_lapse', 'shipment', 'meetup', 'maximum_duration_lapse', 'force_first', 'never_first', 'force_end', 'vehicle_group_duration', 'vehicle_group_duration_on_weeks', 'vehicle_group_duration_on_months'])
+      return false unless type_validator.valid?(@type)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] type Object to be assigned
+    def type=(type)
+      validator = EnumAttributeValidator.new('String', ['same_route', 'sequence', 'order', 'minimum_day_lapse', 'maximum_day_lapse', 'shipment', 'meetup', 'maximum_duration_lapse', 'force_first', 'never_first', 'force_end', 'vehicle_group_duration', 'vehicle_group_duration_on_weeks', 'vehicle_group_duration_on_months'])
+      unless validator.valid?(type)
+        fail ArgumentError, 'invalid value for "type", must be one of #{validator.allowable_values}.'
+      end
+      @type = type
     end
 
     # Checks equality by comparing each attribute.

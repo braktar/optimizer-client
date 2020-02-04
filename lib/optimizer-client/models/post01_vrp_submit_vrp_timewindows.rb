@@ -74,13 +74,37 @@ module OptimizerClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
+      if !@day_index.nil? && @day_index > 6
+        invalid_properties.push('invalid value for "day_index", must be smaller than or equal to 6.')
+      end
+
+      if !@day_index.nil? && @day_index < 0
+        invalid_properties.push('invalid value for "day_index", must be greater than or equal to 0.')
+      end
+
       invalid_properties
     end
 
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
+      return false if !@day_index.nil? && @day_index > 6
+      return false if !@day_index.nil? && @day_index < 0
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] day_index Value to be assigned
+    def day_index=(day_index)
+      if !day_index.nil? && day_index > 6
+        fail ArgumentError, 'invalid value for "day_index", must be smaller than or equal to 6.'
+      end
+
+      if !day_index.nil? && day_index < 0
+        fail ArgumentError, 'invalid value for "day_index", must be greater than or equal to 0.'
+      end
+
+      @day_index = day_index
     end
 
     # Checks equality by comparing each attribute.

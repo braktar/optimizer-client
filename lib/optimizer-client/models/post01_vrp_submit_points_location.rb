@@ -13,30 +13,27 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
-  class Post01VrpSubmitVrpZones
-    attr_accessor :id
+  # Location of the point if matrices are not given
+  class Post01VrpSubmitPointsLocation
+    # Latitude coordinate
+    attr_accessor :lat
 
-    # Geometry which describes the area
-    attr_accessor :polygon
-
-    # Define by which vehicle or vehicles combination the zone could be served
-    attr_accessor :allocations
+    # Longitude coordinate
+    attr_accessor :lon
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'id' => :'id',
-        :'polygon' => :'polygon',
-        :'allocations' => :'allocations'
+        :'lat' => :'lat',
+        :'lon' => :'lon'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'id' => :'String',
-        :'polygon' => :'Object',
-        :'allocations' => :'Array<String>'
+        :'lat' => :'Float',
+        :'lon' => :'Float'
       }
     end
 
@@ -48,18 +45,12 @@ module OptimizerClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'id')
-        self.id = attributes[:'id']
+      if attributes.has_key?(:'lat')
+        self.lat = attributes[:'lat']
       end
 
-      if attributes.has_key?(:'polygon')
-        self.polygon = attributes[:'polygon']
-      end
-
-      if attributes.has_key?(:'allocations')
-        if (value = attributes[:'allocations']).is_a?(Array)
-          self.allocations = value
-        end
+      if attributes.has_key?(:'lon')
+        self.lon = attributes[:'lon']
       end
     end
 
@@ -67,12 +58,12 @@ module OptimizerClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      if @lat.nil?
+        invalid_properties.push('invalid value for "lat", lat cannot be nil.')
       end
 
-      if @polygon.nil?
-        invalid_properties.push('invalid value for "polygon", polygon cannot be nil.')
+      if @lon.nil?
+        invalid_properties.push('invalid value for "lon", lon cannot be nil.')
       end
 
       invalid_properties
@@ -81,8 +72,8 @@ module OptimizerClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @id.nil?
-      return false if @polygon.nil?
+      return false if @lat.nil?
+      return false if @lon.nil?
       true
     end
 
@@ -91,9 +82,8 @@ module OptimizerClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          id == o.id &&
-          polygon == o.polygon &&
-          allocations == o.allocations
+          lat == o.lat &&
+          lon == o.lon
     end
 
     # @see the `==` method
@@ -105,7 +95,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, polygon, allocations].hash
+      [lat, lon].hash
     end
 
     # Builds the object from hash

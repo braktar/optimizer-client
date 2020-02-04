@@ -1,4 +1,4 @@
-# OptimizerClient::Post01VrpSubmitVrpActivity
+# OptimizerClient::Post01VrpSubmitVrpActivities
 
 ## Properties
 Name | Type | Description | Notes

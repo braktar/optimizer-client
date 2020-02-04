@@ -8,13 +8,13 @@ Name | Type | Description | Notes
 **points** | [**Array&lt;Post01VrpSubmitVrpPoints&gt;**](Post01VrpSubmitVrpPoints.md) | Particular place in the map | [optional] 
 **units** | [**Array&lt;Post01VrpSubmitVrpUnits&gt;**](Post01VrpSubmitVrpUnits.md) | The name of a Capacity/Quantity | [optional] 
 **rests** | [**Array&lt;Post01VrpSubmitVrpRests&gt;**](Post01VrpSubmitVrpRests.md) | Break within a vehicle tour | [optional] 
+**zones** | [**Array&lt;Post01VrpSubmitVrpZones&gt;**](Post01VrpSubmitVrpZones.md) |  | [optional] 
 **vehicles** | [**Array&lt;Post01VrpSubmitVrpVehicles&gt;**](Post01VrpSubmitVrpVehicles.md) | Usually represent a work day of a particular driver/vehicle | 
 **services** | [**Array&lt;Post01VrpSubmitVrpServices&gt;**](Post01VrpSubmitVrpServices.md) | Independent activity, which does not require a context | [optional] 
 **shipments** | [**Array&lt;Post01VrpSubmitVrpShipments&gt;**](Post01VrpSubmitVrpShipments.md) | Link directly one activity of collection to another of drop off | [optional] 
-**configuration** | [**Post01VrpSubmitVrpConfiguration**](Post01VrpSubmitVrpConfiguration.md) |  | [optional] 
-**zones** | [**Array&lt;Post01VrpSubmitVrpZones&gt;**](Post01VrpSubmitVrpZones.md) |  | [optional] 
 **relations** | [**Array&lt;Post01VrpSubmitVrpRelations&gt;**](Post01VrpSubmitVrpRelations.md) |  | [optional] 
 **subtours** | [**Array&lt;Post01VrpSubmitVrpSubtours&gt;**](Post01VrpSubmitVrpSubtours.md) |  | [optional] 
 **routes** | [**Array&lt;Post01VrpSubmitVrpRoutes&gt;**](Post01VrpSubmitVrpRoutes.md) |  | [optional] 
+**configuration** | [**Post01VrpSubmitVrpConfiguration**](Post01VrpSubmitVrpConfiguration.md) |  | [optional] 
 
 

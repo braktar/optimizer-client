@@ -26,6 +26,28 @@ module OptimizerClient
     # Maximum size of partition. Only available if method in [iterative_kmean clique]
     attr_accessor :threshold
 
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
+
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
@@ -86,7 +108,31 @@ module OptimizerClient
     # @return true if the model is valid
     def valid?
       return false if @method.nil?
+      method_validator = EnumAttributeValidator.new('String', ['hierarchical_tree', 'balanced_kmeans'])
+      return false unless method_validator.valid?(@method)
+      entity_validator = EnumAttributeValidator.new('String', ['vehicle', 'work_day'])
+      return false unless entity_validator.valid?(@entity)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] method Object to be assigned
+    def method=(method)
+      validator = EnumAttributeValidator.new('String', ['hierarchical_tree', 'balanced_kmeans'])
+      unless validator.valid?(method)
+        fail ArgumentError, 'invalid value for "method", must be one of #{validator.allowable_values}.'
+      end
+      @method = method
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] entity Object to be assigned
+    def entity=(entity)
+      validator = EnumAttributeValidator.new('String', ['vehicle', 'work_day'])
+      unless validator.valid?(entity)
+        fail ArgumentError, 'invalid value for "entity", must be one of #{validator.allowable_values}.'
+      end
+      @entity = entity
     end
 
     # Checks equality by comparing each attribute.

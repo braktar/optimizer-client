@@ -13,6 +13,7 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
+  # Details of the activity performed to accomplish the current service
   class Post01VrpSubmitVrpActivity
     # Time while the current activity stands until it's over (in seconds)
     attr_accessor :duration
@@ -32,6 +33,7 @@ module OptimizerClient
     # Reference to the associated point
     attr_accessor :point_id
 
+    # Time slot while the activity may start
     attr_accessor :timewindows
 
     # Attribute mapping from ruby-style variable name to JSON key.

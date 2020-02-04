@@ -37,9 +37,33 @@ module OptimizerClient
     # Maximum subtour duration
     attr_accessor :duration
 
+    # Point where the vehicles can park and start the subtours
     attr_accessor :transmodal_stops
 
+    # Define the limit of entities the subtour modality can handle
     attr_accessor :capacities
+
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
+
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
+
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -66,7 +90,7 @@ module OptimizerClient
         :'router_mode' => :'String',
         :'router_dimension' => :'String',
         :'speed_multiplier' => :'Float',
-        :'skills' => :'String',
+        :'skills' => :'Array<String>',
         :'duration' => :'Integer',
         :'transmodal_stops' => :'Array<Post01VrpSubmitVrpPoints>',
         :'capacities' => :'Array<Post01VrpSubmitVrpCapacities>'
@@ -103,10 +127,14 @@ module OptimizerClient
 
       if attributes.has_key?(:'speed_multiplier')
         self.speed_multiplier = attributes[:'speed_multiplier']
+      else
+        self.speed_multiplier = 1.0
       end
 
       if attributes.has_key?(:'skills')
-        self.skills = attributes[:'skills']
+        if (value = attributes[:'skills']).is_a?(Array)
+          self.skills = value
+        end
       end
 
       if attributes.has_key?(:'duration')
@@ -141,7 +169,19 @@ module OptimizerClient
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
+      router_dimension_validator = EnumAttributeValidator.new('String', ['time', 'distance'])
+      return false unless router_dimension_validator.valid?(@router_dimension)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] router_dimension Object to be assigned
+    def router_dimension=(router_dimension)
+      validator = EnumAttributeValidator.new('String', ['time', 'distance'])
+      unless validator.valid?(router_dimension)
+        fail ArgumentError, 'invalid value for "router_dimension", must be one of #{validator.allowable_values}.'
+      end
+      @router_dimension = router_dimension
     end
 
     # Checks equality by comparing each attribute.

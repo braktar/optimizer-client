@@ -17,53 +17,17 @@ module OptimizerClient
   class Post01VrpSubmit
     attr_accessor :vrp
 
-    attr_accessor :points
-
-    attr_accessor :units
-
-    attr_accessor :timewindows
-
-    attr_accessor :capacities
-
-    attr_accessor :quantities
-
-    attr_accessor :services
-
-    attr_accessor :shipments
-
-    attr_accessor :vehicles
-
-    attr_accessor :configuration
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'vrp' => :'vrp',
-        :'points' => :'points',
-        :'units' => :'units',
-        :'timewindows' => :'timewindows',
-        :'capacities' => :'capacities',
-        :'quantities' => :'quantities',
-        :'services' => :'services',
-        :'shipments' => :'shipments',
-        :'vehicles' => :'vehicles',
-        :'configuration' => :'configuration'
+        :'vrp' => :'vrp'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'vrp' => :'Post01VrpSubmitVrp',
-        :'points' => :'Post01VrpSubmitPoints',
-        :'units' => :'Post01VrpSubmitVrpUnits',
-        :'timewindows' => :'Post01VrpSubmitTimewindows',
-        :'capacities' => :'Post01VrpSubmitVrpCapacities',
-        :'quantities' => :'Post01VrpSubmitVrpQuantities',
-        :'services' => :'Post01VrpSubmitServices',
-        :'shipments' => :'Post01VrpSubmitShipments',
-        :'vehicles' => :'Post01VrpSubmitVehicles',
-        :'configuration' => :'Post01VrpSubmitConfiguration'
+        :'vrp' => :'Post01VrpSubmitVrp'
       }
     end
 
@@ -77,42 +41,6 @@ module OptimizerClient
 
       if attributes.has_key?(:'vrp')
         self.vrp = attributes[:'vrp']
-      end
-
-      if attributes.has_key?(:'points')
-        self.points = attributes[:'points']
-      end
-
-      if attributes.has_key?(:'units')
-        self.units = attributes[:'units']
-      end
-
-      if attributes.has_key?(:'timewindows')
-        self.timewindows = attributes[:'timewindows']
-      end
-
-      if attributes.has_key?(:'capacities')
-        self.capacities = attributes[:'capacities']
-      end
-
-      if attributes.has_key?(:'quantities')
-        self.quantities = attributes[:'quantities']
-      end
-
-      if attributes.has_key?(:'services')
-        self.services = attributes[:'services']
-      end
-
-      if attributes.has_key?(:'shipments')
-        self.shipments = attributes[:'shipments']
-      end
-
-      if attributes.has_key?(:'vehicles')
-        self.vehicles = attributes[:'vehicles']
-      end
-
-      if attributes.has_key?(:'configuration')
-        self.configuration = attributes[:'configuration']
       end
     end
 
@@ -134,16 +62,7 @@ module OptimizerClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          vrp == o.vrp &&
-          points == o.points &&
-          units == o.units &&
-          timewindows == o.timewindows &&
-          capacities == o.capacities &&
-          quantities == o.quantities &&
-          services == o.services &&
-          shipments == o.shipments &&
-          vehicles == o.vehicles &&
-          configuration == o.configuration
+          vrp == o.vrp
     end
 
     # @see the `==` method
@@ -155,7 +74,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [vrp, points, units, timewindows, capacities, quantities, services, shipments, vehicles, configuration].hash
+      [vrp].hash
     end
 
     # Builds the object from hash

@@ -37,7 +37,7 @@ module OptimizerClient
       {
         :'preprocessing' => :'Post01VrpSubmitVrpConfigurationPreprocessing',
         :'resolution' => :'Post01VrpSubmitVrpConfigurationResolution',
-        :'restitution' => :'Post01VrpSubmitVrpConfigurationRestitution',
+        :'restitution' => :'Object',
         :'schedule' => :'Post01VrpSubmitVrpConfigurationSchedule'
       }
     end

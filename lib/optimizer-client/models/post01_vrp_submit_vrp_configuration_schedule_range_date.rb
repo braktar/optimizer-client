@@ -13,6 +13,7 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
+  # [planning] Define the total period to consider
   class Post01VrpSubmitVrpConfigurationScheduleRangeDate
     # Beginning of the range in date format : .
     attr_accessor :start

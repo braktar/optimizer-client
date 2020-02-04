@@ -37,7 +37,7 @@ module OptimizerClient
       {
         :'vehicle_id' => :'String',
         :'day' => :'Integer',
-        :'mission_ids' => :'String'
+        :'mission_ids' => :'Array<String>'
       }
     end
 
@@ -58,7 +58,9 @@ module OptimizerClient
       end
 
       if attributes.has_key?(:'mission_ids')
-        self.mission_ids = attributes[:'mission_ids']
+        if (value = attributes[:'mission_ids']).is_a?(Array)
+          self.mission_ids = value
+        end
       end
     end
 

@@ -39,9 +39,9 @@ module OptimizerClient
     def self.swagger_types
       {
         :'id' => :'String',
-        :'time' => :'Float',
-        :'distance' => :'Float',
-        :'value' => :'Float'
+        :'time' => :'Array<Float>',
+        :'distance' => :'Array<Float>',
+        :'value' => :'Array<Float>'
       }
     end
 
@@ -58,15 +58,21 @@ module OptimizerClient
       end
 
       if attributes.has_key?(:'time')
-        self.time = attributes[:'time']
+        if (value = attributes[:'time']).is_a?(Array)
+          self.time = value
+        end
       end
 
       if attributes.has_key?(:'distance')
-        self.distance = attributes[:'distance']
+        if (value = attributes[:'distance']).is_a?(Array)
+          self.distance = value
+        end
       end
 
       if attributes.has_key?(:'value')
-        self.value = attributes[:'value']
+        if (value = attributes[:'value']).is_a?(Array)
+          self.value = value
+        end
       end
     end
 

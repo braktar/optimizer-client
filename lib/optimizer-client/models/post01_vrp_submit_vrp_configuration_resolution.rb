@@ -13,6 +13,7 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
+  # Parameters used to stop the search
   class Post01VrpSubmitVrpConfigurationResolution
     # Maximum duration of resolution
     attr_accessor :duration

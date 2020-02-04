@@ -31,6 +31,9 @@ module OptimizerClient
     # [planning] Express the exceptionnals days indices of unavailabilty
     attr_accessor :unavailable_visit_day_indices
 
+    # [planning] Express the exceptionnals days of unavailability
+    attr_accessor :unavailable_visit_day_date
+
     # Minimum day lapse between two visits
     attr_accessor :minimum_lapse
 
@@ -50,6 +53,7 @@ module OptimizerClient
 
     attr_accessor :delivery
 
+    # Define the entities which are taken and dropped
     attr_accessor :quantities
 
     # Attribute mapping from ruby-style variable name to JSON key.
@@ -61,6 +65,7 @@ module OptimizerClient
         :'visits_number' => :'visits_number',
         :'unavailable_visit_indices' => :'unavailable_visit_indices',
         :'unavailable_visit_day_indices' => :'unavailable_visit_day_indices',
+        :'unavailable_visit_day_date' => :'unavailable_visit_day_date',
         :'minimum_lapse' => :'minimum_lapse',
         :'maximum_lapse' => :'maximum_lapse',
         :'maximum_inroute_duration' => :'maximum_inroute_duration',
@@ -79,15 +84,16 @@ module OptimizerClient
         :'priority' => :'Integer',
         :'exclusion_cost' => :'Integer',
         :'visits_number' => :'Integer',
-        :'unavailable_visit_indices' => :'Integer',
-        :'unavailable_visit_day_indices' => :'Integer',
+        :'unavailable_visit_indices' => :'Array<Integer>',
+        :'unavailable_visit_day_indices' => :'Array<Integer>',
+        :'unavailable_visit_day_date' => :'Array<String>',
         :'minimum_lapse' => :'Float',
         :'maximum_lapse' => :'Float',
         :'maximum_inroute_duration' => :'Integer',
-        :'sticky_vehicle_ids' => :'String',
-        :'skills' => :'String',
-        :'pickup' => :'Array<Post01VrpSubmitVrpActivity>',
-        :'delivery' => :'Array<Post01VrpSubmitVrpActivity>',
+        :'sticky_vehicle_ids' => :'Array<String>',
+        :'skills' => :'Array<String>',
+        :'pickup' => :'Post01VrpSubmitVrpPickup',
+        :'delivery' => :'Post01VrpSubmitVrpDelivery',
         :'quantities' => :'Array<Post01VrpSubmitVrpQuantities>'
       }
     end
@@ -114,14 +120,26 @@ module OptimizerClient
 
       if attributes.has_key?(:'visits_number')
         self.visits_number = attributes[:'visits_number']
+      else
+        self.visits_number = 1
       end
 
       if attributes.has_key?(:'unavailable_visit_indices')
-        self.unavailable_visit_indices = attributes[:'unavailable_visit_indices']
+        if (value = attributes[:'unavailable_visit_indices']).is_a?(Array)
+          self.unavailable_visit_indices = value
+        end
       end
 
       if attributes.has_key?(:'unavailable_visit_day_indices')
-        self.unavailable_visit_day_indices = attributes[:'unavailable_visit_day_indices']
+        if (value = attributes[:'unavailable_visit_day_indices']).is_a?(Array)
+          self.unavailable_visit_day_indices = value
+        end
+      end
+
+      if attributes.has_key?(:'unavailable_visit_day_date')
+        if (value = attributes[:'unavailable_visit_day_date']).is_a?(Array)
+          self.unavailable_visit_day_date = value
+        end
       end
 
       if attributes.has_key?(:'minimum_lapse')
@@ -137,23 +155,23 @@ module OptimizerClient
       end
 
       if attributes.has_key?(:'sticky_vehicle_ids')
-        self.sticky_vehicle_ids = attributes[:'sticky_vehicle_ids']
+        if (value = attributes[:'sticky_vehicle_ids']).is_a?(Array)
+          self.sticky_vehicle_ids = value
+        end
       end
 
       if attributes.has_key?(:'skills')
-        self.skills = attributes[:'skills']
+        if (value = attributes[:'skills']).is_a?(Array)
+          self.skills = value
+        end
       end
 
       if attributes.has_key?(:'pickup')
-        if (value = attributes[:'pickup']).is_a?(Array)
-          self.pickup = value
-        end
+        self.pickup = attributes[:'pickup']
       end
 
       if attributes.has_key?(:'delivery')
-        if (value = attributes[:'delivery']).is_a?(Array)
-          self.delivery = value
-        end
+        self.delivery = attributes[:'delivery']
       end
 
       if attributes.has_key?(:'quantities')
@@ -171,6 +189,22 @@ module OptimizerClient
         invalid_properties.push('invalid value for "id", id cannot be nil.')
       end
 
+      if !@priority.nil? && @priority > 8
+        invalid_properties.push('invalid value for "priority", must be smaller than or equal to 8.')
+      end
+
+      if !@priority.nil? && @priority < 0
+        invalid_properties.push('invalid value for "priority", must be greater than or equal to 0.')
+      end
+
+      if @pickup.nil?
+        invalid_properties.push('invalid value for "pickup", pickup cannot be nil.')
+      end
+
+      if @delivery.nil?
+        invalid_properties.push('invalid value for "delivery", delivery cannot be nil.')
+      end
+
       invalid_properties
     end
 
@@ -178,7 +212,25 @@ module OptimizerClient
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
+      return false if !@priority.nil? && @priority > 8
+      return false if !@priority.nil? && @priority < 0
+      return false if @pickup.nil?
+      return false if @delivery.nil?
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] priority Value to be assigned
+    def priority=(priority)
+      if !priority.nil? && priority > 8
+        fail ArgumentError, 'invalid value for "priority", must be smaller than or equal to 8.'
+      end
+
+      if !priority.nil? && priority < 0
+        fail ArgumentError, 'invalid value for "priority", must be greater than or equal to 0.'
+      end
+
+      @priority = priority
     end
 
     # Checks equality by comparing each attribute.
@@ -192,6 +244,7 @@ module OptimizerClient
           visits_number == o.visits_number &&
           unavailable_visit_indices == o.unavailable_visit_indices &&
           unavailable_visit_day_indices == o.unavailable_visit_day_indices &&
+          unavailable_visit_day_date == o.unavailable_visit_day_date &&
           minimum_lapse == o.minimum_lapse &&
           maximum_lapse == o.maximum_lapse &&
           maximum_inroute_duration == o.maximum_inroute_duration &&
@@ -211,7 +264,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, priority, exclusion_cost, visits_number, unavailable_visit_indices, unavailable_visit_day_indices, minimum_lapse, maximum_lapse, maximum_inroute_duration, sticky_vehicle_ids, skills, pickup, delivery, quantities].hash
+      [id, priority, exclusion_cost, visits_number, unavailable_visit_indices, unavailable_visit_day_indices, unavailable_visit_day_date, minimum_lapse, maximum_lapse, maximum_inroute_duration, sticky_vehicle_ids, skills, pickup, delivery, quantities].hash
     end
 
     # Builds the object from hash

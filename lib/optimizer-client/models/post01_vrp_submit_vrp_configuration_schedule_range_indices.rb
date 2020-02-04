@@ -13,6 +13,7 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
+  # [planning] Day indices within the plan has to be build
   class Post01VrpSubmitVrpConfigurationScheduleRangeIndices
     # Beginning of the range.
     attr_accessor :start

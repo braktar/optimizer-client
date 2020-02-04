@@ -13,30 +13,51 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
-  class Post01VrpSubmitVrpZones
-    attr_accessor :id
+  class Post01VrpSubmitVrpActivities
+    # Time while the current activity stands until it's over (in seconds)
+    attr_accessor :duration
 
-    # Geometry which describes the area
-    attr_accessor :polygon
+    # Additional value associated to the visit
+    attr_accessor :additional_value
 
-    # Define by which vehicle or vehicles combination the zone could be served
-    attr_accessor :allocations
+    # Time at destination before the proper activity is effectively performed
+    attr_accessor :setup_duration
+
+    # Overrides the late_multiplier defined at the vehicle level (ORtools only)
+    attr_accessor :late_multiplier
+
+    # [ DEPRECATED ]
+    attr_accessor :timewindow_start_day_shift_number
+
+    # Reference to the associated point
+    attr_accessor :point_id
+
+    # Time slot while the activity may start
+    attr_accessor :timewindows
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'id' => :'id',
-        :'polygon' => :'polygon',
-        :'allocations' => :'allocations'
+        :'duration' => :'duration',
+        :'additional_value' => :'additional_value',
+        :'setup_duration' => :'setup_duration',
+        :'late_multiplier' => :'late_multiplier',
+        :'timewindow_start_day_shift_number' => :'timewindow_start_day_shift_number',
+        :'point_id' => :'point_id',
+        :'timewindows' => :'timewindows'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'id' => :'String',
-        :'polygon' => :'Object',
-        :'allocations' => :'Array<String>'
+        :'duration' => :'String',
+        :'additional_value' => :'Integer',
+        :'setup_duration' => :'String',
+        :'late_multiplier' => :'Float',
+        :'timewindow_start_day_shift_number' => :'Integer',
+        :'point_id' => :'String',
+        :'timewindows' => :'Array<Post01VrpSubmitVrpTimewindows>'
       }
     end
 
@@ -48,17 +69,33 @@ module OptimizerClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'id')
-        self.id = attributes[:'id']
+      if attributes.has_key?(:'duration')
+        self.duration = attributes[:'duration']
       end
 
-      if attributes.has_key?(:'polygon')
-        self.polygon = attributes[:'polygon']
+      if attributes.has_key?(:'additional_value')
+        self.additional_value = attributes[:'additional_value']
       end
 
-      if attributes.has_key?(:'allocations')
-        if (value = attributes[:'allocations']).is_a?(Array)
-          self.allocations = value
+      if attributes.has_key?(:'setup_duration')
+        self.setup_duration = attributes[:'setup_duration']
+      end
+
+      if attributes.has_key?(:'late_multiplier')
+        self.late_multiplier = attributes[:'late_multiplier']
+      end
+
+      if attributes.has_key?(:'timewindow_start_day_shift_number')
+        self.timewindow_start_day_shift_number = attributes[:'timewindow_start_day_shift_number']
+      end
+
+      if attributes.has_key?(:'point_id')
+        self.point_id = attributes[:'point_id']
+      end
+
+      if attributes.has_key?(:'timewindows')
+        if (value = attributes[:'timewindows']).is_a?(Array)
+          self.timewindows = value
         end
       end
     end
@@ -67,12 +104,8 @@ module OptimizerClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
-      end
-
-      if @polygon.nil?
-        invalid_properties.push('invalid value for "polygon", polygon cannot be nil.')
+      if @point_id.nil?
+        invalid_properties.push('invalid value for "point_id", point_id cannot be nil.')
       end
 
       invalid_properties
@@ -81,8 +114,7 @@ module OptimizerClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @id.nil?
-      return false if @polygon.nil?
+      return false if @point_id.nil?
       true
     end
 
@@ -91,9 +123,13 @@ module OptimizerClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          id == o.id &&
-          polygon == o.polygon &&
-          allocations == o.allocations
+          duration == o.duration &&
+          additional_value == o.additional_value &&
+          setup_duration == o.setup_duration &&
+          late_multiplier == o.late_multiplier &&
+          timewindow_start_day_shift_number == o.timewindow_start_day_shift_number &&
+          point_id == o.point_id &&
+          timewindows == o.timewindows
     end
 
     # @see the `==` method
@@ -105,7 +141,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, polygon, allocations].hash
+      [duration, additional_value, setup_duration, late_multiplier, timewindow_start_day_shift_number, point_id, timewindows].hash
     end
 
     # Builds the object from hash

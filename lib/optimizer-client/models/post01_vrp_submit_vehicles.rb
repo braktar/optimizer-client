@@ -49,9 +49,6 @@ module OptimizerClient
     # Constant additional service time for all travel defined in the tour, for this vehicle
     attr_accessor :additional_service
 
-    # [ DEPRECATED ]
-    attr_accessor :force_start
-
     # Force the vehicle to start as soon as the vehicle timewindow is open, as late as possible or let vehicule start at any time. Not available with periodic heuristic.
     attr_accessor :shift_preference
 
@@ -76,20 +73,8 @@ module OptimizerClient
     # Speed multiplier per area, 0 to avoid area. Areas separated with pipes (only available for truck mode at this time).
     attr_accessor :speed_multiplier_area
 
-    # Take into account traffic or not.
-    attr_accessor :traffic
-
     # Departure date time (only used if router supports traffic).
     attr_accessor :departure
-
-    # Use track or not.
-    attr_accessor :track
-
-    # Use motorway or not.
-    attr_accessor :motorway
-
-    # Use toll section or not.
-    attr_accessor :toll
 
     # Number of trailers.
     attr_accessor :trailers
@@ -121,9 +106,6 @@ module OptimizerClient
     # Snap waypoint to junction close by snap distance.
     attr_accessor :snap
 
-    # Strict compliance with truck limitations.
-    attr_accessor :strict_restriction
-
     # Maximum tour duration
     attr_accessor :duration
 
@@ -144,12 +126,6 @@ module OptimizerClient
 
     # [planning] Express the exceptionnals indices of unavailabilty
     attr_accessor :unavailable_work_day_indices
-
-    # Do not take into account the route leaving the depot in the objective. Not available with periodic heuristic.
-    attr_accessor :free_approach
-
-    # Do not take into account the route arriving at the depot in the objective. Not available with periodic heuristic.
-    attr_accessor :free_return
 
     # Begin of the tour
     attr_accessor :start_point_id
@@ -206,7 +182,6 @@ module OptimizerClient
         :'additional_setup' => :'additional_setup',
         :'coef_service' => :'coef_service',
         :'additional_service' => :'additional_service',
-        :'force_start' => :'force_start',
         :'shift_preference' => :'shift_preference',
         :'trips' => :'trips',
         :'matrix_id' => :'matrix_id',
@@ -215,11 +190,7 @@ module OptimizerClient
         :'router_dimension' => :'router_dimension',
         :'speed_multiplier' => :'speed_multiplier',
         :'speed_multiplier_area' => :'speed_multiplier_area',
-        :'traffic' => :'traffic',
         :'departure' => :'departure',
-        :'track' => :'track',
-        :'motorway' => :'motorway',
-        :'toll' => :'toll',
         :'trailers' => :'trailers',
         :'weight' => :'weight',
         :'weight_per_axle' => :'weight_per_axle',
@@ -230,7 +201,6 @@ module OptimizerClient
         :'max_walk_distance' => :'max_walk_distance',
         :'approach' => :'approach',
         :'snap' => :'snap',
-        :'strict_restriction' => :'strict_restriction',
         :'duration' => :'duration',
         :'overall_duration' => :'overall_duration',
         :'distance' => :'distance',
@@ -238,8 +208,6 @@ module OptimizerClient
         :'maximum_ride_distance' => :'maximum_ride_distance',
         :'skills' => :'skills',
         :'unavailable_work_day_indices' => :'unavailable_work_day_indices',
-        :'free_approach' => :'free_approach',
-        :'free_return' => :'free_return',
         :'start_point_id' => :'start_point_id',
         :'end_point_id' => :'end_point_id',
         :'timewindow_id' => :'timewindow_id',
@@ -265,7 +233,6 @@ module OptimizerClient
         :'additional_setup' => :'Float',
         :'coef_service' => :'Float',
         :'additional_service' => :'Float',
-        :'force_start' => :'BOOLEAN',
         :'shift_preference' => :'String',
         :'trips' => :'Integer',
         :'matrix_id' => :'String',
@@ -274,11 +241,7 @@ module OptimizerClient
         :'router_dimension' => :'String',
         :'speed_multiplier' => :'Float',
         :'speed_multiplier_area' => :'Array<Float>',
-        :'traffic' => :'BOOLEAN',
         :'departure' => :'DateTime',
-        :'track' => :'BOOLEAN',
-        :'motorway' => :'BOOLEAN',
-        :'toll' => :'BOOLEAN',
         :'trailers' => :'Integer',
         :'weight' => :'Float',
         :'weight_per_axle' => :'Float',
@@ -289,7 +252,6 @@ module OptimizerClient
         :'max_walk_distance' => :'Float',
         :'approach' => :'String',
         :'snap' => :'Float',
-        :'strict_restriction' => :'BOOLEAN',
         :'duration' => :'String',
         :'overall_duration' => :'String',
         :'distance' => :'Integer',
@@ -297,8 +259,6 @@ module OptimizerClient
         :'maximum_ride_distance' => :'Integer',
         :'skills' => :'Array<String>',
         :'unavailable_work_day_indices' => :'Array<Integer>',
-        :'free_approach' => :'BOOLEAN',
-        :'free_return' => :'BOOLEAN',
         :'start_point_id' => :'String',
         :'end_point_id' => :'String',
         :'timewindow_id' => :'String',
@@ -365,10 +325,6 @@ module OptimizerClient
         self.additional_service = attributes[:'additional_service']
       end
 
-      if attributes.has_key?(:'force_start')
-        self.force_start = attributes[:'force_start']
-      end
-
       if attributes.has_key?(:'shift_preference')
         self.shift_preference = attributes[:'shift_preference']
       end
@@ -405,32 +361,8 @@ module OptimizerClient
         end
       end
 
-      if attributes.has_key?(:'traffic')
-        self.traffic = attributes[:'traffic']
-      else
-        self.traffic = true
-      end
-
       if attributes.has_key?(:'departure')
         self.departure = attributes[:'departure']
-      end
-
-      if attributes.has_key?(:'track')
-        self.track = attributes[:'track']
-      else
-        self.track = true
-      end
-
-      if attributes.has_key?(:'motorway')
-        self.motorway = attributes[:'motorway']
-      else
-        self.motorway = true
-      end
-
-      if attributes.has_key?(:'toll')
-        self.toll = attributes[:'toll']
-      else
-        self.toll = true
       end
 
       if attributes.has_key?(:'trailers')
@@ -477,10 +409,6 @@ module OptimizerClient
         self.snap = attributes[:'snap']
       end
 
-      if attributes.has_key?(:'strict_restriction')
-        self.strict_restriction = attributes[:'strict_restriction']
-      end
-
       if attributes.has_key?(:'duration')
         self.duration = attributes[:'duration']
       end
@@ -511,14 +439,6 @@ module OptimizerClient
         if (value = attributes[:'unavailable_work_day_indices']).is_a?(Array)
           self.unavailable_work_day_indices = value
         end
-      end
-
-      if attributes.has_key?(:'free_approach')
-        self.free_approach = attributes[:'free_approach']
-      end
-
-      if attributes.has_key?(:'free_return')
-        self.free_return = attributes[:'free_return']
       end
 
       if attributes.has_key?(:'start_point_id')
@@ -639,7 +559,6 @@ module OptimizerClient
           additional_setup == o.additional_setup &&
           coef_service == o.coef_service &&
           additional_service == o.additional_service &&
-          force_start == o.force_start &&
           shift_preference == o.shift_preference &&
           trips == o.trips &&
           matrix_id == o.matrix_id &&
@@ -648,11 +567,7 @@ module OptimizerClient
           router_dimension == o.router_dimension &&
           speed_multiplier == o.speed_multiplier &&
           speed_multiplier_area == o.speed_multiplier_area &&
-          traffic == o.traffic &&
           departure == o.departure &&
-          track == o.track &&
-          motorway == o.motorway &&
-          toll == o.toll &&
           trailers == o.trailers &&
           weight == o.weight &&
           weight_per_axle == o.weight_per_axle &&
@@ -663,7 +578,6 @@ module OptimizerClient
           max_walk_distance == o.max_walk_distance &&
           approach == o.approach &&
           snap == o.snap &&
-          strict_restriction == o.strict_restriction &&
           duration == o.duration &&
           overall_duration == o.overall_duration &&
           distance == o.distance &&
@@ -671,8 +585,6 @@ module OptimizerClient
           maximum_ride_distance == o.maximum_ride_distance &&
           skills == o.skills &&
           unavailable_work_day_indices == o.unavailable_work_day_indices &&
-          free_approach == o.free_approach &&
-          free_return == o.free_return &&
           start_point_id == o.start_point_id &&
           end_point_id == o.end_point_id &&
           timewindow_id == o.timewindow_id &&
@@ -691,7 +603,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, cost_fixed, cost_distance_multiplier, cost_time_multiplier, cost_value_multiplier, cost_waiting_time_multiplier, cost_late_multiplier, cost_setup_time_multiplier, coef_setup, additional_setup, coef_service, additional_service, force_start, shift_preference, trips, matrix_id, value_matrix_id, router_mode, router_dimension, speed_multiplier, speed_multiplier_area, traffic, departure, track, motorway, toll, trailers, weight, weight_per_axle, height, width, length, hazardous_goods, max_walk_distance, approach, snap, strict_restriction, duration, overall_duration, distance, maximum_ride_time, maximum_ride_distance, skills, unavailable_work_day_indices, free_approach, free_return, start_point_id, end_point_id, timewindow_id, rest_ids, capacities, sequence_timewindows, timewindow].hash
+      [id, cost_fixed, cost_distance_multiplier, cost_time_multiplier, cost_value_multiplier, cost_waiting_time_multiplier, cost_late_multiplier, cost_setup_time_multiplier, coef_setup, additional_setup, coef_service, additional_service, shift_preference, trips, matrix_id, value_matrix_id, router_mode, router_dimension, speed_multiplier, speed_multiplier_area, departure, trailers, weight, weight_per_axle, height, width, length, hazardous_goods, max_walk_distance, approach, snap, duration, overall_duration, distance, maximum_ride_time, maximum_ride_distance, skills, unavailable_work_day_indices, start_point_id, end_point_id, timewindow_id, rest_ids, capacities, sequence_timewindows, timewindow].hash
     end
 
     # Builds the object from hash

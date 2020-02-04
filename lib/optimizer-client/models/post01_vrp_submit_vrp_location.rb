@@ -13,6 +13,7 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
+  # Location of the point if matrices are not given
   class Post01VrpSubmitVrpLocation
     # Latitude coordinate
     attr_accessor :lat

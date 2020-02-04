@@ -13,6 +13,7 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
+  # Parameters independent from the search
   class Post01VrpSubmitVrpConfigurationPreprocessing
     # Divide the problem into clusters beyond this threshold
     attr_accessor :max_split_size
@@ -38,10 +39,11 @@ module OptimizerClient
     # Limit the size of the considered neighbourhood within the search
     attr_accessor :neighbourhood_size
 
+    # Describes partition process to perform before solving. Partitions will be performed in provided order
+    attr_accessor :partitions
+
     # Forces first solution strategy. Either one value to force specific behavior, or a list in order to test several ones and select the best. If string is 'internal', we will choose among pre-selected behaviors. There can not be more than three behaviors (ORtools only)
     attr_accessor :first_solution_strategy
-
-    attr_accessor :partitions
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -54,8 +56,8 @@ module OptimizerClient
         :'force_cluster' => :'force_cluster',
         :'prefer_short_segment' => :'prefer_short_segment',
         :'neighbourhood_size' => :'neighbourhood_size',
-        :'first_solution_strategy' => :'first_solution_strategy',
-        :'partitions' => :'partitions'
+        :'partitions' => :'partitions',
+        :'first_solution_strategy' => :'first_solution_strategy'
       }
     end
 
@@ -70,8 +72,8 @@ module OptimizerClient
         :'force_cluster' => :'BOOLEAN',
         :'prefer_short_segment' => :'BOOLEAN',
         :'neighbourhood_size' => :'Integer',
-        :'first_solution_strategy' => :'Array<String>',
-        :'partitions' => :'Array<Post01VrpSubmitVrpConfigurationPreprocessingPartitions>'
+        :'partitions' => :'Array<Post01VrpSubmitVrpConfigurationPreprocessingPartitions>',
+        :'first_solution_strategy' => :'Array<String>'
       }
     end
 
@@ -117,15 +119,15 @@ module OptimizerClient
         self.neighbourhood_size = attributes[:'neighbourhood_size']
       end
 
-      if attributes.has_key?(:'first_solution_strategy')
-        if (value = attributes[:'first_solution_strategy']).is_a?(Array)
-          self.first_solution_strategy = value
-        end
-      end
-
       if attributes.has_key?(:'partitions')
         if (value = attributes[:'partitions']).is_a?(Array)
           self.partitions = value
+        end
+      end
+
+      if attributes.has_key?(:'first_solution_strategy')
+        if (value = attributes[:'first_solution_strategy']).is_a?(Array)
+          self.first_solution_strategy = value
         end
       end
     end
@@ -156,8 +158,8 @@ module OptimizerClient
           force_cluster == o.force_cluster &&
           prefer_short_segment == o.prefer_short_segment &&
           neighbourhood_size == o.neighbourhood_size &&
-          first_solution_strategy == o.first_solution_strategy &&
-          partitions == o.partitions
+          partitions == o.partitions &&
+          first_solution_strategy == o.first_solution_strategy
     end
 
     # @see the `==` method
@@ -169,7 +171,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [max_split_size, partition_method, partition_metric, kmeans_centroids, cluster_threshold, force_cluster, prefer_short_segment, neighbourhood_size, first_solution_strategy, partitions].hash
+      [max_split_size, partition_method, partition_metric, kmeans_centroids, cluster_threshold, force_cluster, prefer_short_segment, neighbourhood_size, partitions, first_solution_strategy].hash
     end
 
     # Builds the object from hash

@@ -19,22 +19,23 @@ module OptimizerClient
     # Duration of the vehicle rest
     attr_accessor :duration
 
+    # Time slot while the rest may begin
+    attr_accessor :timewindows
+
     # Late multiplier applied for this rest.
     attr_accessor :late_multiplier
 
     # Cost induced by non affectation of this rest.
     attr_accessor :exclusion_cost
 
-    attr_accessor :timewindows
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
         :'duration' => :'duration',
+        :'timewindows' => :'timewindows',
         :'late_multiplier' => :'late_multiplier',
-        :'exclusion_cost' => :'exclusion_cost',
-        :'timewindows' => :'timewindows'
+        :'exclusion_cost' => :'exclusion_cost'
       }
     end
 
@@ -43,9 +44,9 @@ module OptimizerClient
       {
         :'id' => :'String',
         :'duration' => :'String',
+        :'timewindows' => :'Array<Post01VrpSubmitVrpTimewindows>',
         :'late_multiplier' => :'Float',
-        :'exclusion_cost' => :'Float',
-        :'timewindows' => :'Array<Post01VrpSubmitVrpTimewindows>'
+        :'exclusion_cost' => :'Float'
       }
     end
 
@@ -65,18 +66,18 @@ module OptimizerClient
         self.duration = attributes[:'duration']
       end
 
+      if attributes.has_key?(:'timewindows')
+        if (value = attributes[:'timewindows']).is_a?(Array)
+          self.timewindows = value
+        end
+      end
+
       if attributes.has_key?(:'late_multiplier')
         self.late_multiplier = attributes[:'late_multiplier']
       end
 
       if attributes.has_key?(:'exclusion_cost')
         self.exclusion_cost = attributes[:'exclusion_cost']
-      end
-
-      if attributes.has_key?(:'timewindows')
-        if (value = attributes[:'timewindows']).is_a?(Array)
-          self.timewindows = value
-        end
       end
     end
 
@@ -110,9 +111,9 @@ module OptimizerClient
       self.class == o.class &&
           id == o.id &&
           duration == o.duration &&
+          timewindows == o.timewindows &&
           late_multiplier == o.late_multiplier &&
-          exclusion_cost == o.exclusion_cost &&
-          timewindows == o.timewindows
+          exclusion_cost == o.exclusion_cost
     end
 
     # @see the `==` method
@@ -124,7 +125,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, duration, late_multiplier, exclusion_cost, timewindows].hash
+      [id, duration, timewindows, late_multiplier, exclusion_cost].hash
     end
 
     # Builds the object from hash

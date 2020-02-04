@@ -29,6 +29,9 @@ module OptimizerClient
     # Break within a vehicle tour
     attr_accessor :rests
 
+    # 
+    attr_accessor :zones
+
     # Usually represent a work day of a particular driver/vehicle
     attr_accessor :vehicles
 
@@ -38,15 +41,16 @@ module OptimizerClient
     # Link directly one activity of collection to another of drop off
     attr_accessor :shipments
 
-    attr_accessor :configuration
-
-    attr_accessor :zones
-
+    # 
     attr_accessor :relations
 
+    # 
     attr_accessor :subtours
 
+    # 
     attr_accessor :routes
+
+    attr_accessor :configuration
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -56,14 +60,14 @@ module OptimizerClient
         :'points' => :'points',
         :'units' => :'units',
         :'rests' => :'rests',
+        :'zones' => :'zones',
         :'vehicles' => :'vehicles',
         :'services' => :'services',
         :'shipments' => :'shipments',
-        :'configuration' => :'configuration',
-        :'zones' => :'zones',
         :'relations' => :'relations',
         :'subtours' => :'subtours',
-        :'routes' => :'routes'
+        :'routes' => :'routes',
+        :'configuration' => :'configuration'
       }
     end
 
@@ -75,14 +79,14 @@ module OptimizerClient
         :'points' => :'Array<Post01VrpSubmitVrpPoints>',
         :'units' => :'Array<Post01VrpSubmitVrpUnits>',
         :'rests' => :'Array<Post01VrpSubmitVrpRests>',
+        :'zones' => :'Array<Post01VrpSubmitVrpZones>',
         :'vehicles' => :'Array<Post01VrpSubmitVrpVehicles>',
         :'services' => :'Array<Post01VrpSubmitVrpServices>',
         :'shipments' => :'Array<Post01VrpSubmitVrpShipments>',
-        :'configuration' => :'Post01VrpSubmitVrpConfiguration',
-        :'zones' => :'Array<Post01VrpSubmitVrpZones>',
         :'relations' => :'Array<Post01VrpSubmitVrpRelations>',
         :'subtours' => :'Array<Post01VrpSubmitVrpSubtours>',
-        :'routes' => :'Array<Post01VrpSubmitVrpRoutes>'
+        :'routes' => :'Array<Post01VrpSubmitVrpRoutes>',
+        :'configuration' => :'Post01VrpSubmitVrpConfiguration'
       }
     end
 
@@ -122,6 +126,12 @@ module OptimizerClient
         end
       end
 
+      if attributes.has_key?(:'zones')
+        if (value = attributes[:'zones']).is_a?(Array)
+          self.zones = value
+        end
+      end
+
       if attributes.has_key?(:'vehicles')
         if (value = attributes[:'vehicles']).is_a?(Array)
           self.vehicles = value
@@ -137,16 +147,6 @@ module OptimizerClient
       if attributes.has_key?(:'shipments')
         if (value = attributes[:'shipments']).is_a?(Array)
           self.shipments = value
-        end
-      end
-
-      if attributes.has_key?(:'configuration')
-        self.configuration = attributes[:'configuration']
-      end
-
-      if attributes.has_key?(:'zones')
-        if (value = attributes[:'zones']).is_a?(Array)
-          self.zones = value
         end
       end
 
@@ -166,6 +166,10 @@ module OptimizerClient
         if (value = attributes[:'routes']).is_a?(Array)
           self.routes = value
         end
+      end
+
+      if attributes.has_key?(:'configuration')
+        self.configuration = attributes[:'configuration']
       end
     end
 
@@ -197,14 +201,14 @@ module OptimizerClient
           points == o.points &&
           units == o.units &&
           rests == o.rests &&
+          zones == o.zones &&
           vehicles == o.vehicles &&
           services == o.services &&
           shipments == o.shipments &&
-          configuration == o.configuration &&
-          zones == o.zones &&
           relations == o.relations &&
           subtours == o.subtours &&
-          routes == o.routes
+          routes == o.routes &&
+          configuration == o.configuration
     end
 
     # @see the `==` method
@@ -216,7 +220,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [name, matrices, points, units, rests, vehicles, services, shipments, configuration, zones, relations, subtours, routes].hash
+      [name, matrices, points, units, rests, zones, vehicles, services, shipments, relations, subtours, routes, configuration].hash
     end
 
     # Builds the object from hash

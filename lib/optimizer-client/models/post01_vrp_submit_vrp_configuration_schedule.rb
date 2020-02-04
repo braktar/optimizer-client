@@ -13,34 +13,35 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
+  # Describe the general settings of a schedule
   class Post01VrpSubmitVrpConfigurationSchedule
+    attr_accessor :range_indices
+
+    attr_accessor :range_date
+
     # [planning] Exclude some days indices from the resolution
     attr_accessor :unavailable_indices
 
     # [planning] Exclude some days from the resolution
     attr_accessor :unavailable_date
 
-    attr_accessor :range_indices
-
-    attr_accessor :range_date
-
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'unavailable_indices' => :'unavailable_indices',
-        :'unavailable_date' => :'unavailable_date',
         :'range_indices' => :'range_indices',
-        :'range_date' => :'range_date'
+        :'range_date' => :'range_date',
+        :'unavailable_indices' => :'unavailable_indices',
+        :'unavailable_date' => :'unavailable_date'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'unavailable_indices' => :'Integer',
-        :'unavailable_date' => :'Date',
         :'range_indices' => :'Post01VrpSubmitVrpConfigurationScheduleRangeIndices',
-        :'range_date' => :'Post01VrpSubmitVrpConfigurationScheduleRangeDate'
+        :'range_date' => :'Post01VrpSubmitVrpConfigurationScheduleRangeDate',
+        :'unavailable_indices' => :'Array<Integer>',
+        :'unavailable_date' => :'Array<Date>'
       }
     end
 
@@ -52,20 +53,24 @@ module OptimizerClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'unavailable_indices')
-        self.unavailable_indices = attributes[:'unavailable_indices']
-      end
-
-      if attributes.has_key?(:'unavailable_date')
-        self.unavailable_date = attributes[:'unavailable_date']
-      end
-
       if attributes.has_key?(:'range_indices')
         self.range_indices = attributes[:'range_indices']
       end
 
       if attributes.has_key?(:'range_date')
         self.range_date = attributes[:'range_date']
+      end
+
+      if attributes.has_key?(:'unavailable_indices')
+        if (value = attributes[:'unavailable_indices']).is_a?(Array)
+          self.unavailable_indices = value
+        end
+      end
+
+      if attributes.has_key?(:'unavailable_date')
+        if (value = attributes[:'unavailable_date']).is_a?(Array)
+          self.unavailable_date = value
+        end
       end
     end
 
@@ -87,10 +92,10 @@ module OptimizerClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          unavailable_indices == o.unavailable_indices &&
-          unavailable_date == o.unavailable_date &&
           range_indices == o.range_indices &&
-          range_date == o.range_date
+          range_date == o.range_date &&
+          unavailable_indices == o.unavailable_indices &&
+          unavailable_date == o.unavailable_date
     end
 
     # @see the `==` method
@@ -102,7 +107,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [unavailable_indices, unavailable_date, range_indices, range_date].hash
+      [range_indices, range_date, unavailable_indices, unavailable_date].hash
     end
 
     # Builds the object from hash

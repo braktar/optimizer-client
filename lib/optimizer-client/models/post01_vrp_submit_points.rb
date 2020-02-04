@@ -35,7 +35,7 @@ module OptimizerClient
       {
         :'id' => :'String',
         :'matrix_index' => :'Integer',
-        :'location' => :'Post01VrpSubmitVrpLocation'
+        :'location' => :'Post01VrpSubmitPointsLocation'
       }
     end
 

@@ -13,6 +13,7 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
+  # Restitution paramaters
   class Post01VrpSubmitVrpConfigurationRestitution
     # Allow to return the MultiLineString of each route
     attr_accessor :geometry

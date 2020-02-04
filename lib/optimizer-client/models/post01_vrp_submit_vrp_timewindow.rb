@@ -13,21 +13,26 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
-  class Post01VrpSubmitVrpZones
+  # Time window whithin the vehicle may be on route
+  class Post01VrpSubmitVrpTimewindow
     attr_accessor :id
 
-    # Geometry which describes the area
-    attr_accessor :polygon
+    # Beginning of the current timewindow in seconds
+    attr_accessor :start
 
-    # Define by which vehicle or vehicles combination the zone could be served
-    attr_accessor :allocations
+    # End of the current timewindow in seconds
+    attr_accessor :_end
+
+    # [ Planning ] Day index of the current timewindow within the periodic week, (monday = 0, ..., sunday = 6)
+    attr_accessor :day_index
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'id' => :'id',
-        :'polygon' => :'polygon',
-        :'allocations' => :'allocations'
+        :'start' => :'start',
+        :'_end' => :'end',
+        :'day_index' => :'day_index'
       }
     end
 
@@ -35,8 +40,9 @@ module OptimizerClient
     def self.swagger_types
       {
         :'id' => :'String',
-        :'polygon' => :'Object',
-        :'allocations' => :'Array<String>'
+        :'start' => :'String',
+        :'_end' => :'String',
+        :'day_index' => :'Integer'
       }
     end
 
@@ -52,14 +58,16 @@ module OptimizerClient
         self.id = attributes[:'id']
       end
 
-      if attributes.has_key?(:'polygon')
-        self.polygon = attributes[:'polygon']
+      if attributes.has_key?(:'start')
+        self.start = attributes[:'start']
       end
 
-      if attributes.has_key?(:'allocations')
-        if (value = attributes[:'allocations']).is_a?(Array)
-          self.allocations = value
-        end
+      if attributes.has_key?(:'end')
+        self._end = attributes[:'end']
+      end
+
+      if attributes.has_key?(:'day_index')
+        self.day_index = attributes[:'day_index']
       end
     end
 
@@ -67,12 +75,12 @@ module OptimizerClient
     # @return Array for valid properties with the reasons
     def list_invalid_properties
       invalid_properties = Array.new
-      if @id.nil?
-        invalid_properties.push('invalid value for "id", id cannot be nil.')
+      if !@day_index.nil? && @day_index > 6
+        invalid_properties.push('invalid value for "day_index", must be smaller than or equal to 6.')
       end
 
-      if @polygon.nil?
-        invalid_properties.push('invalid value for "polygon", polygon cannot be nil.')
+      if !@day_index.nil? && @day_index < 0
+        invalid_properties.push('invalid value for "day_index", must be greater than or equal to 0.')
       end
 
       invalid_properties
@@ -81,9 +89,23 @@ module OptimizerClient
     # Check to see if the all the properties in the model are valid
     # @return true if the model is valid
     def valid?
-      return false if @id.nil?
-      return false if @polygon.nil?
+      return false if !@day_index.nil? && @day_index > 6
+      return false if !@day_index.nil? && @day_index < 0
       true
+    end
+
+    # Custom attribute writer method with validation
+    # @param [Object] day_index Value to be assigned
+    def day_index=(day_index)
+      if !day_index.nil? && day_index > 6
+        fail ArgumentError, 'invalid value for "day_index", must be smaller than or equal to 6.'
+      end
+
+      if !day_index.nil? && day_index < 0
+        fail ArgumentError, 'invalid value for "day_index", must be greater than or equal to 0.'
+      end
+
+      @day_index = day_index
     end
 
     # Checks equality by comparing each attribute.
@@ -92,8 +114,9 @@ module OptimizerClient
       return true if self.equal?(o)
       self.class == o.class &&
           id == o.id &&
-          polygon == o.polygon &&
-          allocations == o.allocations
+          start == o.start &&
+          _end == o._end &&
+          day_index == o.day_index
     end
 
     # @see the `==` method
@@ -105,7 +128,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, polygon, allocations].hash
+      [id, start, _end, day_index].hash
     end
 
     # Builds the object from hash

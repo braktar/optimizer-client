@@ -73,6 +73,9 @@ module OptimizerClient
     # Multiplies the vehicle speed, default : 1.0. Specifies if this vehicle is faster or slower than average speed.
     attr_accessor :speed_multiplier
 
+    # List of latitudes and longitudes separated with commas. Areas separated with pipes (only available for truck mode at this time).
+    attr_accessor :area
+
     # Speed multiplier per area, 0 to avoid area. Areas separated with pipes (only available for truck mode at this time).
     attr_accessor :speed_multiplier_area
 
@@ -145,6 +148,9 @@ module OptimizerClient
     # [planning] Express the exceptionnals indices of unavailabilty
     attr_accessor :unavailable_work_day_indices
 
+    # [planning] Express the exceptionnals days of unavailability
+    attr_accessor :unavailable_work_date
+
     # Do not take into account the route leaving the depot in the objective. Not available with periodic heuristic.
     attr_accessor :free_approach
 
@@ -157,17 +163,41 @@ module OptimizerClient
     # End of the tour
     attr_accessor :end_point_id
 
+    # Define the limit of entities the vehicle could carry
+    attr_accessor :capacities
+
+    # [planning] Define the vehicle work schedule over a period
+    attr_accessor :sequence_timewindows
+
     # Sequence timewindows to consider
     attr_accessor :timewindow_id
+
+    attr_accessor :timewindow
 
     # Breaks whithin the tour
     attr_accessor :rest_ids
 
-    attr_accessor :capacities
+    class EnumAttributeValidator
+      attr_reader :datatype
+      attr_reader :allowable_values
 
-    attr_accessor :sequence_timewindows
+      def initialize(datatype, allowable_values)
+        @allowable_values = allowable_values.map do |value|
+          case datatype.to_s
+          when /Integer/i
+            value.to_i
+          when /Float/i
+            value.to_f
+          else
+            value
+          end
+        end
+      end
 
-    attr_accessor :timewindow
+      def valid?(value)
+        !value || allowable_values.include?(value)
+      end
+    end
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
@@ -192,6 +222,7 @@ module OptimizerClient
         :'router_mode' => :'router_mode',
         :'router_dimension' => :'router_dimension',
         :'speed_multiplier' => :'speed_multiplier',
+        :'area' => :'area',
         :'speed_multiplier_area' => :'speed_multiplier_area',
         :'traffic' => :'traffic',
         :'departure' => :'departure',
@@ -216,15 +247,16 @@ module OptimizerClient
         :'maximum_ride_distance' => :'maximum_ride_distance',
         :'skills' => :'skills',
         :'unavailable_work_day_indices' => :'unavailable_work_day_indices',
+        :'unavailable_work_date' => :'unavailable_work_date',
         :'free_approach' => :'free_approach',
         :'free_return' => :'free_return',
         :'start_point_id' => :'start_point_id',
         :'end_point_id' => :'end_point_id',
-        :'timewindow_id' => :'timewindow_id',
-        :'rest_ids' => :'rest_ids',
         :'capacities' => :'capacities',
         :'sequence_timewindows' => :'sequence_timewindows',
-        :'timewindow' => :'timewindow'
+        :'timewindow_id' => :'timewindow_id',
+        :'timewindow' => :'timewindow',
+        :'rest_ids' => :'rest_ids'
       }
     end
 
@@ -251,7 +283,8 @@ module OptimizerClient
         :'router_mode' => :'String',
         :'router_dimension' => :'String',
         :'speed_multiplier' => :'Float',
-        :'speed_multiplier_area' => :'Float',
+        :'area' => :'Array<String>',
+        :'speed_multiplier_area' => :'Array<Float>',
         :'traffic' => :'BOOLEAN',
         :'departure' => :'DateTime',
         :'track' => :'BOOLEAN',
@@ -273,17 +306,18 @@ module OptimizerClient
         :'distance' => :'Integer',
         :'maximum_ride_time' => :'Integer',
         :'maximum_ride_distance' => :'Integer',
-        :'skills' => :'String',
-        :'unavailable_work_day_indices' => :'Integer',
+        :'skills' => :'Array<String>',
+        :'unavailable_work_day_indices' => :'Array<Integer>',
+        :'unavailable_work_date' => :'Array<String>',
         :'free_approach' => :'BOOLEAN',
         :'free_return' => :'BOOLEAN',
         :'start_point_id' => :'String',
         :'end_point_id' => :'String',
-        :'timewindow_id' => :'String',
-        :'rest_ids' => :'String',
         :'capacities' => :'Array<Post01VrpSubmitVrpCapacities>',
         :'sequence_timewindows' => :'Array<Post01VrpSubmitVrpTimewindows>',
-        :'timewindow' => :'Array<Post01VrpSubmitVrpTimewindows>'
+        :'timewindow_id' => :'String',
+        :'timewindow' => :'Post01VrpSubmitVrpTimewindow',
+        :'rest_ids' => :'Array<String>'
       }
     end
 
@@ -373,14 +407,26 @@ module OptimizerClient
 
       if attributes.has_key?(:'speed_multiplier')
         self.speed_multiplier = attributes[:'speed_multiplier']
+      else
+        self.speed_multiplier = 1.0
+      end
+
+      if attributes.has_key?(:'area')
+        if (value = attributes[:'area']).is_a?(Array)
+          self.area = value
+        end
       end
 
       if attributes.has_key?(:'speed_multiplier_area')
-        self.speed_multiplier_area = attributes[:'speed_multiplier_area']
+        if (value = attributes[:'speed_multiplier_area']).is_a?(Array)
+          self.speed_multiplier_area = value
+        end
       end
 
       if attributes.has_key?(:'traffic')
         self.traffic = attributes[:'traffic']
+      else
+        self.traffic = true
       end
 
       if attributes.has_key?(:'departure')
@@ -389,14 +435,20 @@ module OptimizerClient
 
       if attributes.has_key?(:'track')
         self.track = attributes[:'track']
+      else
+        self.track = true
       end
 
       if attributes.has_key?(:'motorway')
         self.motorway = attributes[:'motorway']
+      else
+        self.motorway = true
       end
 
       if attributes.has_key?(:'toll')
         self.toll = attributes[:'toll']
+      else
+        self.toll = true
       end
 
       if attributes.has_key?(:'trailers')
@@ -429,10 +481,14 @@ module OptimizerClient
 
       if attributes.has_key?(:'max_walk_distance')
         self.max_walk_distance = attributes[:'max_walk_distance']
+      else
+        self.max_walk_distance = 750.0
       end
 
       if attributes.has_key?(:'approach')
         self.approach = attributes[:'approach']
+      else
+        self.approach = 'unrestricted'
       end
 
       if attributes.has_key?(:'snap')
@@ -464,11 +520,21 @@ module OptimizerClient
       end
 
       if attributes.has_key?(:'skills')
-        self.skills = attributes[:'skills']
+        if (value = attributes[:'skills']).is_a?(Array)
+          self.skills = value
+        end
       end
 
       if attributes.has_key?(:'unavailable_work_day_indices')
-        self.unavailable_work_day_indices = attributes[:'unavailable_work_day_indices']
+        if (value = attributes[:'unavailable_work_day_indices']).is_a?(Array)
+          self.unavailable_work_day_indices = value
+        end
+      end
+
+      if attributes.has_key?(:'unavailable_work_date')
+        if (value = attributes[:'unavailable_work_date']).is_a?(Array)
+          self.unavailable_work_date = value
+        end
       end
 
       if attributes.has_key?(:'free_approach')
@@ -487,14 +553,6 @@ module OptimizerClient
         self.end_point_id = attributes[:'end_point_id']
       end
 
-      if attributes.has_key?(:'timewindow_id')
-        self.timewindow_id = attributes[:'timewindow_id']
-      end
-
-      if attributes.has_key?(:'rest_ids')
-        self.rest_ids = attributes[:'rest_ids']
-      end
-
       if attributes.has_key?(:'capacities')
         if (value = attributes[:'capacities']).is_a?(Array)
           self.capacities = value
@@ -507,9 +565,17 @@ module OptimizerClient
         end
       end
 
+      if attributes.has_key?(:'timewindow_id')
+        self.timewindow_id = attributes[:'timewindow_id']
+      end
+
       if attributes.has_key?(:'timewindow')
-        if (value = attributes[:'timewindow']).is_a?(Array)
-          self.timewindow = value
+        self.timewindow = attributes[:'timewindow']
+      end
+
+      if attributes.has_key?(:'rest_ids')
+        if (value = attributes[:'rest_ids']).is_a?(Array)
+          self.rest_ids = value
         end
       end
     end
@@ -529,7 +595,55 @@ module OptimizerClient
     # @return true if the model is valid
     def valid?
       return false if @id.nil?
+      shift_preference_validator = EnumAttributeValidator.new('String', ['force_start', 'force_end', 'minimize_span'])
+      return false unless shift_preference_validator.valid?(@shift_preference)
+      router_dimension_validator = EnumAttributeValidator.new('String', ['time', 'distance'])
+      return false unless router_dimension_validator.valid?(@router_dimension)
+      hazardous_goods_validator = EnumAttributeValidator.new('String', ['explosive', 'gas', 'flammable', 'combustible', 'organic', 'poison', 'radio_active', 'corrosive', 'poisonous_inhalation', 'harmful_to_water', 'other'])
+      return false unless hazardous_goods_validator.valid?(@hazardous_goods)
+      approach_validator = EnumAttributeValidator.new('String', ['unrestricted', 'curb'])
+      return false unless approach_validator.valid?(@approach)
       true
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] shift_preference Object to be assigned
+    def shift_preference=(shift_preference)
+      validator = EnumAttributeValidator.new('String', ['force_start', 'force_end', 'minimize_span'])
+      unless validator.valid?(shift_preference)
+        fail ArgumentError, 'invalid value for "shift_preference", must be one of #{validator.allowable_values}.'
+      end
+      @shift_preference = shift_preference
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] router_dimension Object to be assigned
+    def router_dimension=(router_dimension)
+      validator = EnumAttributeValidator.new('String', ['time', 'distance'])
+      unless validator.valid?(router_dimension)
+        fail ArgumentError, 'invalid value for "router_dimension", must be one of #{validator.allowable_values}.'
+      end
+      @router_dimension = router_dimension
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] hazardous_goods Object to be assigned
+    def hazardous_goods=(hazardous_goods)
+      validator = EnumAttributeValidator.new('String', ['explosive', 'gas', 'flammable', 'combustible', 'organic', 'poison', 'radio_active', 'corrosive', 'poisonous_inhalation', 'harmful_to_water', 'other'])
+      unless validator.valid?(hazardous_goods)
+        fail ArgumentError, 'invalid value for "hazardous_goods", must be one of #{validator.allowable_values}.'
+      end
+      @hazardous_goods = hazardous_goods
+    end
+
+    # Custom attribute writer method checking allowed values (enum).
+    # @param [Object] approach Object to be assigned
+    def approach=(approach)
+      validator = EnumAttributeValidator.new('String', ['unrestricted', 'curb'])
+      unless validator.valid?(approach)
+        fail ArgumentError, 'invalid value for "approach", must be one of #{validator.allowable_values}.'
+      end
+      @approach = approach
     end
 
     # Checks equality by comparing each attribute.
@@ -557,6 +671,7 @@ module OptimizerClient
           router_mode == o.router_mode &&
           router_dimension == o.router_dimension &&
           speed_multiplier == o.speed_multiplier &&
+          area == o.area &&
           speed_multiplier_area == o.speed_multiplier_area &&
           traffic == o.traffic &&
           departure == o.departure &&
@@ -581,15 +696,16 @@ module OptimizerClient
           maximum_ride_distance == o.maximum_ride_distance &&
           skills == o.skills &&
           unavailable_work_day_indices == o.unavailable_work_day_indices &&
+          unavailable_work_date == o.unavailable_work_date &&
           free_approach == o.free_approach &&
           free_return == o.free_return &&
           start_point_id == o.start_point_id &&
           end_point_id == o.end_point_id &&
-          timewindow_id == o.timewindow_id &&
-          rest_ids == o.rest_ids &&
           capacities == o.capacities &&
           sequence_timewindows == o.sequence_timewindows &&
-          timewindow == o.timewindow
+          timewindow_id == o.timewindow_id &&
+          timewindow == o.timewindow &&
+          rest_ids == o.rest_ids
     end
 
     # @see the `==` method
@@ -601,7 +717,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [id, cost_fixed, cost_distance_multiplier, cost_time_multiplier, cost_value_multiplier, cost_waiting_time_multiplier, cost_late_multiplier, cost_setup_time_multiplier, coef_setup, additional_setup, coef_service, additional_service, force_start, shift_preference, trips, matrix_id, value_matrix_id, router_mode, router_dimension, speed_multiplier, speed_multiplier_area, traffic, departure, track, motorway, toll, trailers, weight, weight_per_axle, height, width, length, hazardous_goods, max_walk_distance, approach, snap, strict_restriction, duration, overall_duration, distance, maximum_ride_time, maximum_ride_distance, skills, unavailable_work_day_indices, free_approach, free_return, start_point_id, end_point_id, timewindow_id, rest_ids, capacities, sequence_timewindows, timewindow].hash
+      [id, cost_fixed, cost_distance_multiplier, cost_time_multiplier, cost_value_multiplier, cost_waiting_time_multiplier, cost_late_multiplier, cost_setup_time_multiplier, coef_setup, additional_setup, coef_service, additional_service, force_start, shift_preference, trips, matrix_id, value_matrix_id, router_mode, router_dimension, speed_multiplier, area, speed_multiplier_area, traffic, departure, track, motorway, toll, trailers, weight, weight_per_axle, height, width, length, hazardous_goods, max_walk_distance, approach, snap, strict_restriction, duration, overall_duration, distance, maximum_ride_time, maximum_ride_distance, skills, unavailable_work_day_indices, unavailable_work_date, free_approach, free_return, start_point_id, end_point_id, capacities, sequence_timewindows, timewindow_id, timewindow, rest_ids].hash
     end
 
     # Builds the object from hash
