@@ -13,57 +13,32 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
-  # Submit VRP problem
-  class Post01VrpSubmit
-    attr_accessor :vrp
+  class Post01VrpSubmitConfiguration
+    attr_accessor :preprocessing
 
-    attr_accessor :points
+    attr_accessor :resolution
 
-    attr_accessor :units
+    attr_accessor :restitution
 
-    attr_accessor :timewindows
-
-    attr_accessor :capacities
-
-    attr_accessor :quantities
-
-    attr_accessor :services
-
-    attr_accessor :shipments
-
-    attr_accessor :vehicles
-
-    attr_accessor :configuration
+    attr_accessor :schedule
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'vrp' => :'vrp',
-        :'points' => :'points',
-        :'units' => :'units',
-        :'timewindows' => :'timewindows',
-        :'capacities' => :'capacities',
-        :'quantities' => :'quantities',
-        :'services' => :'services',
-        :'shipments' => :'shipments',
-        :'vehicles' => :'vehicles',
-        :'configuration' => :'configuration'
+        :'preprocessing' => :'preprocessing',
+        :'resolution' => :'resolution',
+        :'restitution' => :'restitution',
+        :'schedule' => :'schedule'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'vrp' => :'Post01VrpSubmitVrp',
-        :'points' => :'Post01VrpSubmitPoints',
-        :'units' => :'Post01VrpSubmitVrpUnits',
-        :'timewindows' => :'Post01VrpSubmitTimewindows',
-        :'capacities' => :'Post01VrpSubmitVrpCapacities',
-        :'quantities' => :'Post01VrpSubmitVrpQuantities',
-        :'services' => :'Post01VrpSubmitServices',
-        :'shipments' => :'Post01VrpSubmitShipments',
-        :'vehicles' => :'Post01VrpSubmitVehicles',
-        :'configuration' => :'Post01VrpSubmitConfiguration'
+        :'preprocessing' => :'Post01VrpSubmitVrpConfigurationPreprocessing',
+        :'resolution' => :'Post01VrpSubmitVrpConfigurationResolution',
+        :'restitution' => :'Post01VrpSubmitVrpConfigurationRestitution',
+        :'schedule' => :'Post01VrpSubmitVrpConfigurationSchedule'
       }
     end
 
@@ -75,44 +50,20 @@ module OptimizerClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'vrp')
-        self.vrp = attributes[:'vrp']
+      if attributes.has_key?(:'preprocessing')
+        self.preprocessing = attributes[:'preprocessing']
       end
 
-      if attributes.has_key?(:'points')
-        self.points = attributes[:'points']
+      if attributes.has_key?(:'resolution')
+        self.resolution = attributes[:'resolution']
       end
 
-      if attributes.has_key?(:'units')
-        self.units = attributes[:'units']
+      if attributes.has_key?(:'restitution')
+        self.restitution = attributes[:'restitution']
       end
 
-      if attributes.has_key?(:'timewindows')
-        self.timewindows = attributes[:'timewindows']
-      end
-
-      if attributes.has_key?(:'capacities')
-        self.capacities = attributes[:'capacities']
-      end
-
-      if attributes.has_key?(:'quantities')
-        self.quantities = attributes[:'quantities']
-      end
-
-      if attributes.has_key?(:'services')
-        self.services = attributes[:'services']
-      end
-
-      if attributes.has_key?(:'shipments')
-        self.shipments = attributes[:'shipments']
-      end
-
-      if attributes.has_key?(:'vehicles')
-        self.vehicles = attributes[:'vehicles']
-      end
-
-      if attributes.has_key?(:'configuration')
-        self.configuration = attributes[:'configuration']
+      if attributes.has_key?(:'schedule')
+        self.schedule = attributes[:'schedule']
       end
     end
 
@@ -134,16 +85,10 @@ module OptimizerClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          vrp == o.vrp &&
-          points == o.points &&
-          units == o.units &&
-          timewindows == o.timewindows &&
-          capacities == o.capacities &&
-          quantities == o.quantities &&
-          services == o.services &&
-          shipments == o.shipments &&
-          vehicles == o.vehicles &&
-          configuration == o.configuration
+          preprocessing == o.preprocessing &&
+          resolution == o.resolution &&
+          restitution == o.restitution &&
+          schedule == o.schedule
     end
 
     # @see the `==` method
@@ -155,7 +100,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [vrp, points, units, timewindows, capacities, quantities, services, shipments, vehicles, configuration].hash
+      [preprocessing, resolution, restitution, schedule].hash
     end
 
     # Builds the object from hash

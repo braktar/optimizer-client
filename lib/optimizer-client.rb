@@ -18,6 +18,7 @@ require 'optimizer-client/configuration'
 
 # Models
 require 'optimizer-client/models/post01_vrp_submit'
+require 'optimizer-client/models/post01_vrp_submit_configuration'
 require 'optimizer-client/models/post01_vrp_submit_points'
 require 'optimizer-client/models/post01_vrp_submit_services'
 require 'optimizer-client/models/post01_vrp_submit_shipments'

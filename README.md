@@ -84,6 +84,7 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [OptimizerClient::Post01VrpSubmit](docs/Post01VrpSubmit.md)
+ - [OptimizerClient::Post01VrpSubmitConfiguration](docs/Post01VrpSubmitConfiguration.md)
  - [OptimizerClient::Post01VrpSubmitPoints](docs/Post01VrpSubmitPoints.md)
  - [OptimizerClient::Post01VrpSubmitServices](docs/Post01VrpSubmitServices.md)
  - [OptimizerClient::Post01VrpSubmitShipments](docs/Post01VrpSubmitShipments.md)

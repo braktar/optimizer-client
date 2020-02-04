@@ -12,6 +12,6 @@ Name | Type | Description | Notes
 **services** | [**Post01VrpSubmitServices**](Post01VrpSubmitServices.md) |  | [optional] 
 **shipments** | [**Post01VrpSubmitShipments**](Post01VrpSubmitShipments.md) |  | [optional] 
 **vehicles** | [**Post01VrpSubmitVehicles**](Post01VrpSubmitVehicles.md) |  | [optional] 
-**configuration** | [**Post01VrpSubmitVrpConfiguration**](Post01VrpSubmitVrpConfiguration.md) |  | [optional] 
+**configuration** | [**Post01VrpSubmitConfiguration**](Post01VrpSubmitConfiguration.md) |  | [optional] 
 
 

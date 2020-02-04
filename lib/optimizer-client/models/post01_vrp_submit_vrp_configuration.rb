@@ -13,6 +13,7 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
+  # Describe the limitations of the solve in term of computation
   class Post01VrpSubmitVrpConfiguration
     attr_accessor :preprocessing
 
