@@ -75,8 +75,8 @@ module OptimizerClient
     # @param id Job id returned by creating VRP problem.
     # @param [Hash] opts the optional parameters
     # @return [VrpResult]
-    def job(id, opts = {})
-      data, _status_code, _headers = job_with_http_info(id, opts)
+    def get_job(id, opts = {})
+      data, _status_code, _headers = get_job_with_http_info(id, opts)
       data
     end
 
@@ -85,13 +85,13 @@ module OptimizerClient
     # @param id Job id returned by creating VRP problem.
     # @param [Hash] opts the optional parameters
     # @return [Array<(VrpResult, Fixnum, Hash)>] VrpResult data, response status code and response headers
-    def job_with_http_info(id, opts = {})
+    def get_job_with_http_info(id, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: VrpApi.job ...'
+        @api_client.config.logger.debug 'Calling API: VrpApi.get_job ...'
       end
       # verify the required parameter 'id' is set
       if @api_client.config.client_side_validation && id.nil?
-        fail ArgumentError, "Missing the required parameter 'id' when calling VrpApi.job"
+        fail ArgumentError, "Missing the required parameter 'id' when calling VrpApi.get_job"
       end
       # resource path
       local_var_path = '/0.1/vrp/jobs/{id}'.sub('{' + 'id' + '}', id.to_s)
@@ -118,7 +118,7 @@ module OptimizerClient
         :auth_names => auth_names,
         :return_type => 'VrpResult')
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: VrpApi#job\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: VrpApi#get_job\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -126,8 +126,8 @@ module OptimizerClient
     # List running or queued jobs.
     # @param [Hash] opts the optional parameters
     # @return [VrpJobsList]
-    def list_jobs(opts = {})
-      data, _status_code, _headers = list_jobs_with_http_info(opts)
+    def get_job_list(opts = {})
+      data, _status_code, _headers = get_job_list_with_http_info(opts)
       data
     end
 
@@ -135,9 +135,9 @@ module OptimizerClient
     # List running or queued jobs.
     # @param [Hash] opts the optional parameters
     # @return [Array<(VrpJobsList, Fixnum, Hash)>] VrpJobsList data, response status code and response headers
-    def list_jobs_with_http_info(opts = {})
+    def get_job_list_with_http_info(opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: VrpApi.list_jobs ...'
+        @api_client.config.logger.debug 'Calling API: VrpApi.get_job_list ...'
       end
       # resource path
       local_var_path = '/0.1/vrp/jobs'
@@ -164,7 +164,7 @@ module OptimizerClient
         :auth_names => auth_names,
         :return_type => 'VrpJobsList')
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: VrpApi#list_jobs\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: VrpApi#get_job_list\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end
@@ -173,8 +173,8 @@ module OptimizerClient
     # @param _01_vrp_submit 
     # @param [Hash] opts the optional parameters
     # @return [VrpResult]
-    def vrp(_01_vrp_submit, opts = {})
-      data, _status_code, _headers = vrp_with_http_info(_01_vrp_submit, opts)
+    def submit_vrp(_01_vrp_submit, opts = {})
+      data, _status_code, _headers = submit_vrp_with_http_info(_01_vrp_submit, opts)
       data
     end
 
@@ -183,13 +183,13 @@ module OptimizerClient
     # @param _01_vrp_submit 
     # @param [Hash] opts the optional parameters
     # @return [Array<(VrpResult, Fixnum, Hash)>] VrpResult data, response status code and response headers
-    def vrp_with_http_info(_01_vrp_submit, opts = {})
+    def submit_vrp_with_http_info(_01_vrp_submit, opts = {})
       if @api_client.config.debugging
-        @api_client.config.logger.debug 'Calling API: VrpApi.vrp ...'
+        @api_client.config.logger.debug 'Calling API: VrpApi.submit_vrp ...'
       end
       # verify the required parameter '_01_vrp_submit' is set
       if @api_client.config.client_side_validation && _01_vrp_submit.nil?
-        fail ArgumentError, "Missing the required parameter '_01_vrp_submit' when calling VrpApi.vrp"
+        fail ArgumentError, "Missing the required parameter '_01_vrp_submit' when calling VrpApi.submit_vrp"
       end
       # resource path
       local_var_path = '/0.1/vrp/submit'
@@ -218,7 +218,7 @@ module OptimizerClient
         :auth_names => auth_names,
         :return_type => 'VrpResult')
       if @api_client.config.debugging
-        @api_client.config.logger.debug "API called: VrpApi#vrp\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
+        @api_client.config.logger.debug "API called: VrpApi#submit_vrp\nData: #{data.inspect}\nStatus code: #{status_code}\nHeaders: #{headers}"
       end
       return data, status_code, headers
     end

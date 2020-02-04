@@ -5,9 +5,9 @@ All URIs are relative to *https://localhost:1791*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**delete_job**](VrpApi.md#delete_job) | **DELETE** /0.1/vrp/jobs/{id} | Delete vrp job
-[**job**](VrpApi.md#job) | **GET** /0.1/vrp/jobs/{id} | Fetch vrp job status
-[**list_jobs**](VrpApi.md#list_jobs) | **GET** /0.1/vrp/jobs | List vrp jobs
-[**vrp**](VrpApi.md#vrp) | **POST** /0.1/vrp/submit | Submit VRP problem
+[**get_job**](VrpApi.md#get_job) | **GET** /0.1/vrp/jobs/{id} | Fetch vrp job status
+[**get_job_list**](VrpApi.md#get_job_list) | **GET** /0.1/vrp/jobs | List vrp jobs
+[**submit_vrp**](VrpApi.md#submit_vrp) | **POST** /0.1/vrp/submit | Submit VRP problem
 
 
 # **delete_job**
@@ -56,8 +56,8 @@ No authorization required
 
 
 
-# **job**
-> VrpResult job(id)
+# **get_job**
+> VrpResult get_job(id)
 
 Fetch vrp job status
 
@@ -82,10 +82,10 @@ id = 'id_example' # String | Job id returned by creating VRP problem.
 
 begin
   #Fetch vrp job status
-  result = api_instance.job(id)
+  result = api_instance.get_job(id)
   p result
 rescue OptimizerClient::ApiError => e
-  puts "Exception when calling VrpApi->job: #{e}"
+  puts "Exception when calling VrpApi->get_job: #{e}"
 end
 ```
 
@@ -110,8 +110,8 @@ Name | Type | Description  | Notes
 
 
 
-# **list_jobs**
-> VrpJobsList list_jobs
+# **get_job_list**
+> VrpJobsList get_job_list
 
 List vrp jobs
 
@@ -126,10 +126,10 @@ api_instance = OptimizerClient::VrpApi.new
 
 begin
   #List vrp jobs
-  result = api_instance.list_jobs
+  result = api_instance.get_job_list
   p result
 rescue OptimizerClient::ApiError => e
-  puts "Exception when calling VrpApi->list_jobs: #{e}"
+  puts "Exception when calling VrpApi->get_job_list: #{e}"
 end
 ```
 
@@ -151,8 +151,8 @@ No authorization required
 
 
 
-# **vrp**
-> VrpResult vrp(_01_vrp_submit)
+# **submit_vrp**
+> VrpResult submit_vrp(_01_vrp_submit)
 
 Submit VRP problem
 
@@ -177,10 +177,10 @@ _01_vrp_submit = OptimizerClient::Post01VrpSubmit.new # Post01VrpSubmit |
 
 begin
   #Submit VRP problem
-  result = api_instance.vrp(_01_vrp_submit)
+  result = api_instance.submit_vrp(_01_vrp_submit)
   p result
 rescue OptimizerClient::ApiError => e
-  puts "Exception when calling VrpApi->vrp: #{e}"
+  puts "Exception when calling VrpApi->submit_vrp: #{e}"
 end
 ```
 

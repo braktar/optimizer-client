@@ -76,9 +76,9 @@ All URIs are relative to *https://localhost:1791*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *OptimizerClient::VrpApi* | [**delete_job**](docs/VrpApi.md#delete_job) | **DELETE** /0.1/vrp/jobs/{id} | Delete vrp job
-*OptimizerClient::VrpApi* | [**job**](docs/VrpApi.md#job) | **GET** /0.1/vrp/jobs/{id} | Fetch vrp job status
-*OptimizerClient::VrpApi* | [**list_jobs**](docs/VrpApi.md#list_jobs) | **GET** /0.1/vrp/jobs | List vrp jobs
-*OptimizerClient::VrpApi* | [**vrp**](docs/VrpApi.md#vrp) | **POST** /0.1/vrp/submit | Submit VRP problem
+*OptimizerClient::VrpApi* | [**get_job**](docs/VrpApi.md#get_job) | **GET** /0.1/vrp/jobs/{id} | Fetch vrp job status
+*OptimizerClient::VrpApi* | [**get_job_list**](docs/VrpApi.md#get_job_list) | **GET** /0.1/vrp/jobs | List vrp jobs
+*OptimizerClient::VrpApi* | [**submit_vrp**](docs/VrpApi.md#submit_vrp) | **POST** /0.1/vrp/submit | Submit VRP problem
 
 
 ## Documentation for Models
