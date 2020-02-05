@@ -13,36 +13,41 @@ Swagger Codegen version: 2.4.12
 require 'date'
 
 module OptimizerClient
-  class VrpResultDetailQuantities
-    # 
-    attr_accessor :unit
+  class VrpResultSolutionUnassigneds
+    # Linked spatial point
+    attr_accessor :point_id
 
     # 
-    attr_accessor :value
+    attr_accessor :service_id
 
     # 
-    attr_accessor :setup_value
+    attr_accessor :pickup_shipment_id
 
     # 
-    attr_accessor :current_load
+    attr_accessor :delivery_shipment_id
+
+    # 
+    attr_accessor :detail
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
-        :'unit' => :'unit',
-        :'value' => :'value',
-        :'setup_value' => :'setup_value',
-        :'current_load' => :'current_load'
+        :'point_id' => :'point_id',
+        :'service_id' => :'service_id',
+        :'pickup_shipment_id' => :'pickup_shipment_id',
+        :'delivery_shipment_id' => :'delivery_shipment_id',
+        :'detail' => :'detail'
       }
     end
 
     # Attribute type mapping.
     def self.swagger_types
       {
-        :'unit' => :'String',
-        :'value' => :'Float',
-        :'setup_value' => :'Float',
-        :'current_load' => :'Float'
+        :'point_id' => :'String',
+        :'service_id' => :'String',
+        :'pickup_shipment_id' => :'String',
+        :'delivery_shipment_id' => :'String',
+        :'detail' => :'VrpResultSolutionRouteActivityDetails'
       }
     end
 
@@ -54,20 +59,24 @@ module OptimizerClient
       # convert string to symbol for hash key
       attributes = attributes.each_with_object({}) { |(k, v), h| h[k.to_sym] = v }
 
-      if attributes.has_key?(:'unit')
-        self.unit = attributes[:'unit']
+      if attributes.has_key?(:'point_id')
+        self.point_id = attributes[:'point_id']
       end
 
-      if attributes.has_key?(:'value')
-        self.value = attributes[:'value']
+      if attributes.has_key?(:'service_id')
+        self.service_id = attributes[:'service_id']
       end
 
-      if attributes.has_key?(:'setup_value')
-        self.setup_value = attributes[:'setup_value']
+      if attributes.has_key?(:'pickup_shipment_id')
+        self.pickup_shipment_id = attributes[:'pickup_shipment_id']
       end
 
-      if attributes.has_key?(:'current_load')
-        self.current_load = attributes[:'current_load']
+      if attributes.has_key?(:'delivery_shipment_id')
+        self.delivery_shipment_id = attributes[:'delivery_shipment_id']
+      end
+
+      if attributes.has_key?(:'detail')
+        self.detail = attributes[:'detail']
       end
     end
 
@@ -89,10 +98,11 @@ module OptimizerClient
     def ==(o)
       return true if self.equal?(o)
       self.class == o.class &&
-          unit == o.unit &&
-          value == o.value &&
-          setup_value == o.setup_value &&
-          current_load == o.current_load
+          point_id == o.point_id &&
+          service_id == o.service_id &&
+          pickup_shipment_id == o.pickup_shipment_id &&
+          delivery_shipment_id == o.delivery_shipment_id &&
+          detail == o.detail
     end
 
     # @see the `==` method
@@ -104,7 +114,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [unit, value, setup_value, current_load].hash
+      [point_id, service_id, pickup_shipment_id, delivery_shipment_id, detail].hash
     end
 
     # Builds the object from hash
