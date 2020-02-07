@@ -18,14 +18,14 @@ module OptimizerClient
     # Status title.
     attr_accessor :status
 
-    # Status detail.
-    attr_accessor :detail
+    # Status message.
+    attr_accessor :message
 
     # Attribute mapping from ruby-style variable name to JSON key.
     def self.attribute_map
       {
         :'status' => :'status',
-        :'detail' => :'detail'
+        :'message' => :'message'
       }
     end
 
@@ -33,7 +33,7 @@ module OptimizerClient
     def self.swagger_types
       {
         :'status' => :'String',
-        :'detail' => :'String'
+        :'message' => :'String'
       }
     end
 
@@ -49,8 +49,8 @@ module OptimizerClient
         self.status = attributes[:'status']
       end
 
-      if attributes.has_key?(:'detail')
-        self.detail = attributes[:'detail']
+      if attributes.has_key?(:'message')
+        self.message = attributes[:'message']
       end
     end
 
@@ -73,7 +73,7 @@ module OptimizerClient
       return true if self.equal?(o)
       self.class == o.class &&
           status == o.status &&
-          detail == o.detail
+          message == o.message
     end
 
     # @see the `==` method
@@ -85,7 +85,7 @@ module OptimizerClient
     # Calculates hash code according to all attributes.
     # @return [Fixnum] Hash code
     def hash
-      [status, detail].hash
+      [status, message].hash
     end
 
     # Builds the object from hash
