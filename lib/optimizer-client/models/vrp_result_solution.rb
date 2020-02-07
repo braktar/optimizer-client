@@ -64,7 +64,7 @@ module OptimizerClient
     def self.swagger_types
       {
         :'heuristics_synthesis' => :'Object',
-        :'solvers' => :'String',
+        :'solvers' => :'Array<String>',
         :'cost' => :'Float',
         :'iterations' => :'Integer',
         :'total_distance' => :'Integer',
@@ -89,7 +89,9 @@ module OptimizerClient
       end
 
       if attributes.has_key?(:'solvers')
-        self.solvers = attributes[:'solvers']
+        if (value = attributes[:'solvers']).is_a?(Array)
+          self.solvers = value
+        end
       end
 
       if attributes.has_key?(:'cost')
