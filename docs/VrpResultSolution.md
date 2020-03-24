@@ -4,7 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **heuristics_synthesis** | **Object** | When first_solution_strategies are provided, sum up of tryied heuristics and their performance. | [optional] 
-**solvers** | **String** | Solvers used to perform the optimization | [optional] 
+**solvers** | **Array&lt;String&gt;** | Solvers used to perform the optimization | [optional] 
 **cost** | **Float** | The actual cost of the solution considering all costs | [optional] 
 **iterations** | **Integer** | Total number of iteration performed to obtain the current result | [optional] 
 **total_distance** | **Integer** | cumulated distance of every route | [optional] 

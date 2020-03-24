@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **additional_value** | **Integer** | Additional value associated to the visit | [optional] 
 **setup_duration** | **String** | Time at destination before the proper activity is effectively performed | [optional] 
 **late_multiplier** | **Float** | Overrides the late_multiplier defined at the vehicle level (ORtools only) | [optional] 
-**timewindow_start_day_shift_number** | **Integer** | [ DEPRECATED ] | [optional] 
 **point_id** | **String** | Reference to the associated point | 
 **timewindows** | [**Array&lt;Post01VrpSubmitVrpTimewindows&gt;**](Post01VrpSubmitVrpTimewindows.md) | Time slot while the activity may start | [optional] 
 

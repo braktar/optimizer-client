@@ -15,7 +15,6 @@ Name | Type | Description | Notes
 **additional_setup** | **Float** | Constant additional setup duration for all setup defined in the tour, for this vehicle | [optional] 
 **coef_service** | **Float** | Coefficient applied to every service duration defined in the tour, for this vehicle | [optional] 
 **additional_service** | **Float** | Constant additional service time for all travel defined in the tour, for this vehicle | [optional] 
-**force_start** | **BOOLEAN** | [ DEPRECATED ] | [optional] 
 **shift_preference** | **String** | Force the vehicle to start as soon as the vehicle timewindow is open, as late as possible or let vehicule start at any time. Not available with periodic heuristic. | [optional] 
 **trips** | **Integer** | Describe the number of return to the depot a vehicle is allowed to perform within its route | [optional] 
 **matrix_id** | **String** | Related matrix, if already defined | [optional] 

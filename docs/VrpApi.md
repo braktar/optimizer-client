@@ -1,6 +1,6 @@
 # OptimizerClient::VrpApi
 
-All URIs are relative to *https://localhost:1791*
+All URIs are relative to *https://optimizer.mapotempo.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
