@@ -7,5 +7,7 @@ Name | Type | Description | Notes
 **resolution** | [**Post01VrpSubmitVrpConfigurationResolution**](Post01VrpSubmitVrpConfigurationResolution.md) |  | [optional] 
 **restitution** | [**Post01VrpSubmitVrpConfigurationRestitution**](Post01VrpSubmitVrpConfigurationRestitution.md) |  | [optional] 
 **schedule** | [**Post01VrpSubmitVrpConfigurationSchedule**](Post01VrpSubmitVrpConfigurationSchedule.md) |  | [optional] 
+**solver_parameter** | **String** |  | [optional] 
+**first_solution_strategy** | **String** |  | [optional] 
 
 

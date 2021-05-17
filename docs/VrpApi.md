@@ -1,6 +1,6 @@
 # OptimizerClient::VrpApi
 
-All URIs are relative to *https://optimizer.mapotempo.com*
+All URIs are relative to *http://optimizer.mapotempo.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,6 +21,13 @@ Kill the job. This operation may have delay, since if the job is working it will
 ```ruby
 # load the gem
 require 'optimizer-client'
+# setup authorization
+OptimizerClient.configure do |config|
+  # Configure API key authorization: api_key_query_param
+  config.api_key['api_key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['api_key'] = 'Bearer'
+end
 
 api_instance = OptimizerClient::VrpApi.new
 
@@ -47,7 +54,7 @@ nil (empty response body)
 
 ### Authorization
 
-No authorization required
+[api_key_query_param](../README.md#api_key_query_param)
 
 ### HTTP request headers
 
@@ -57,7 +64,7 @@ No authorization required
 
 
 # **get_job**
-> VrpResult get_job(id)
+> ApiV01VrpResult get_job(id)
 
 Fetch vrp job status
 
@@ -97,7 +104,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VrpResult**](VrpResult.md)
+[**ApiV01VrpResult**](ApiV01VrpResult.md)
 
 ### Authorization
 
@@ -111,7 +118,7 @@ Name | Type | Description  | Notes
 
 
 # **get_job_list**
-> VrpJobsList get_job_list
+> ApiV01VrpJobsList get_job_list
 
 List vrp jobs
 
@@ -121,6 +128,13 @@ List running or queued jobs.
 ```ruby
 # load the gem
 require 'optimizer-client'
+# setup authorization
+OptimizerClient.configure do |config|
+  # Configure API key authorization: api_key_query_param
+  config.api_key['api_key'] = 'YOUR API KEY'
+  # Uncomment the following line to set a prefix for the API key, e.g. 'Bearer' (defaults to nil)
+  #config.api_key_prefix['api_key'] = 'Bearer'
+end
 
 api_instance = OptimizerClient::VrpApi.new
 
@@ -138,11 +152,11 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**VrpJobsList**](VrpJobsList.md)
+[**ApiV01VrpJobsList**](ApiV01VrpJobsList.md)
 
 ### Authorization
 
-No authorization required
+[api_key_query_param](../README.md#api_key_query_param)
 
 ### HTTP request headers
 
@@ -152,7 +166,7 @@ No authorization required
 
 
 # **submit_vrp**
-> VrpResult submit_vrp(_01_vrp_submit)
+> ApiV01VrpResult submit_vrp(_01_vrp_submit)
 
 Submit VRP problem
 
@@ -192,7 +206,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VrpResult**](VrpResult.md)
+[**ApiV01VrpResult**](ApiV01VrpResult.md)
 
 ### Authorization
 

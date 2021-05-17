@@ -3,7 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**start** | **Integer** | Beginning of the range. | [optional] 
-**_end** | **Integer** | End of the range. | [optional] 
+**start** | **Integer** | Beginning of the range | 
+**_end** | **Integer** | End of the range | 
 
 
